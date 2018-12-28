@@ -1,4 +1,4 @@
-package pl.com.tt.kapp.model
+package pl.com.tt.kapp.modules.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -45,7 +45,10 @@ class BTAdapter{
 
     fun getInfo() : BTDevice?{
         if(mBluetoothAdapter != null){
-            return BTDevice(name = mBluetoothAdapter.name, btAddress = mBluetoothAdapter.address)
+            return BTDevice(
+                name = mBluetoothAdapter.name,
+                btAddress = mBluetoothAdapter.address
+            )
         }
         return null
     }

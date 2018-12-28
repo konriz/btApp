@@ -1,4 +1,4 @@
-package pl.com.tt.kapp.model
+package pl.com.tt.kapp.modules.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -9,7 +9,7 @@ import android.content.IntentFilter
 import android.util.Log
 import pl.com.tt.kapp.BluetoothPresenter
 
-class BTReceiver(val presenter: BluetoothPresenter) : BroadcastReceiver() {
+class BTReceiver(val driver: BTDriver) : BroadcastReceiver() {
 
     private val devices : MutableSet<BluetoothDevice> = mutableSetOf()
     val filter = IntentFilter()
@@ -26,7 +26,7 @@ class BTReceiver(val presenter: BluetoothPresenter) : BroadcastReceiver() {
         when(action){
             BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
                 Log.i(TAG, "Discovery started")
-                presenter.showLoader()
+                driver.discoveryStarted()
                 devices.clear()
             }
 
@@ -38,7 +38,7 @@ class BTReceiver(val presenter: BluetoothPresenter) : BroadcastReceiver() {
             BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
                 Log.i(TAG,"Discovery finished")
                 Log.i(TAG,"Devices : $devices")
-                presenter.updateDevices(devices.toList())
+                driver.discoveredDevices(devices.toList())
             }
         }
     }

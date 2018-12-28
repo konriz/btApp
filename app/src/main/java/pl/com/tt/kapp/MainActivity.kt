@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        registerReceiver(presenter.receiver, presenter.receiver.filter)
+        registerReceiver(presenter.getReceiver(), presenter.getReceiver().filter)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = DevicesListAdapter(devicesList)
@@ -32,21 +32,18 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
             adapter = viewAdapter
         }
 
-        if(presenter.bluetoothEnabled()){
-            enableBTswitch.isChecked = true
-        }
+        presenter.setBtSwitch()
         enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
-                presenter.enableBluetooth(true)
+                presenter.enableBluetooth()
             } else {
-                presenter.enableBluetooth(false)
+                presenter.disableBluetooth()
             }
         }
 
         scanButton.setOnClickListener {
             if(enableBTswitch.isChecked){
                 presenter.scanDevices()
-                showToast(R.string.bluetooth_scanning, Toast.LENGTH_SHORT)
             }
             else{
                 showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
@@ -62,6 +59,10 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
         progressBar.visibility = View.GONE
     }
 
+    override fun setSwitch(state: Boolean) {
+        enableBTswitch.isChecked = state
+    }
+
     override fun showToast(message: Int, length : Int) {
         Toast.makeText(this, message, length).show()
     }
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
     }
 
     override fun onDestroy() {
-        unregisterReceiver(presenter.receiver)
+        unregisterReceiver(presenter.driver.receiver)
         presenter.onDestroy()
         super.onDestroy()
     }
