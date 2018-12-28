@@ -19,4 +19,6 @@
     <string name="no_bluetooth_device">No bluetooth device found</string>
     <string name="bluetooth_already_enabled">Bluetooth already enabled</string>
     <string name="bluetooth_scanning">Bluetooth scanning...</string>
+    <string name="nameLabel">Device Name</string>
+    <string name="addressLabel">Device Address</string>
 </resources>

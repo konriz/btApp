@@ -8,6 +8,11 @@ class BluetoothMVP{
         fun setBtSwitch()
     }
 
+    interface ScanResultListener{
+        fun onDiscoveryStarted()
+        fun onDiscoveryFinished(devices : List<BluetoothDevice>)
+    }
+
     interface View{
         fun showLoader()
         fun hideLoader()
@@ -16,6 +21,4 @@ class BluetoothMVP{
         fun updateRecycler(devices : List<BluetoothDevice>)
     }
 
-    interface Listener{
-    }
 }

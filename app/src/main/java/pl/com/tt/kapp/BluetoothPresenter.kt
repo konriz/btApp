@@ -4,47 +4,36 @@ import android.bluetooth.BluetoothDevice
 import android.widget.Toast
 import pl.com.tt.kapp.modules.bluetooth.BTDriver
 
-class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter {
+class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter, BluetoothMVP.ScanResultListener {
 
     val driver = BTDriver(this)
 
     fun enableBluetooth(){
-        showBtStatus(driver.enableBluetooth())
-        setBtSwitch()
-        }
+        driver.enable()
+    }
 
     fun disableBluetooth(){
-        showBtStatus(driver.disableBluetooth())
-        setBtSwitch()
+        driver.disable()
     }
 
     override fun setBtSwitch() {
-        view?.setSwitch(driver.bluetoothEnabled())
+        view?.setSwitch(driver.isEnabled())
     }
 
     fun getReceiver() = driver.receiver
 
     fun scanDevices() {
-        view?.showToast(R.string.bluetooth_scanning, Toast.LENGTH_SHORT)
         driver.scanDevices()
     }
 
-    fun showLoader() = view?.showLoader()
-
-    fun hideLoader() = view?.hideLoader()
-
-    fun showBtStatus(result : Int){
-        when(result) {
-            -1 -> view?.showToast(R.string.no_bluetooth_device, Toast.LENGTH_SHORT)
-            0 -> view?.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
-            1 -> view?.showToast(R.string.bluetooth_enabled, Toast.LENGTH_SHORT)
-            2 -> view?.showToast(R.string.bluetooth_already_enabled, Toast.LENGTH_SHORT)
-        }
+    override fun onDiscoveryStarted() {
+        view?.showToast(R.string.bluetooth_scanning, Toast.LENGTH_SHORT)
+        view?.showLoader()
     }
 
-    fun updateDevices(devices: List<BluetoothDevice>){
+    override fun onDiscoveryFinished(devices: List<BluetoothDevice>) {
         view?.updateRecycler(devices)
-        hideLoader()
+        view?.hideLoader()
     }
 
     fun onDestroy(){
