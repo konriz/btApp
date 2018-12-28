@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">kApp</string>
+
+    <string name="bluetooth_enable_switch">Enable bluetooth</string>
+    <string name="scan_button">Scan</string>
+    <string name="refresh_list">Refresh list</string>
+
+    <string name="discovery_started">Discovery started</string>
+    <string name="discovery_finished">Discovery finished</string>
+
+    <string name="device_data">Device name : %1$s\nDevice address : %2$s</string>
+
+    <string name="unknown">Unknown</string>
+    <string name="none"></string>
+
+    <string name="bluetooth_enabled">Bluetooth enabled</string>
+    <string name="bluetooth_disabled">Bluetooth disabled</string>
+    <string name="bluetooth_enabling_failed">Bluetooth not enabled</string>
+    <string name="no_bluetooth_device">No bluetooth device found</string>
+    <string name="bluetooth_already_enabled">Bluetooth already enabled</string>
+    <string name="bluetooth_scanning">Bluetooth scanning...</string>
+</resources>
