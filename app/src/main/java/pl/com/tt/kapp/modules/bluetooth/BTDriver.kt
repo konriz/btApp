@@ -1,26 +1,18 @@
 package pl.com.tt.kapp.modules.bluetooth
 
-import android.bluetooth.BluetoothDevice
 import pl.com.tt.kapp.BluetoothPresenter
+import pl.com.tt.kapp.modules.Driver
 
-class BTDriver (val presenter : BluetoothPresenter){
+class BTDriver (val presenter : BluetoothPresenter) : Driver {
     private val adapter = BTAdapter()
-    val receiver = BTReceiver(this)
+    val receiver = BTReceiver(presenter)
 
-    fun discoveryStarted() {
-        presenter.showLoader()
-    }
+    fun scanDevices() = adapter.scanDevices(this)
 
-    fun discoveredDevices(devices : List<BluetoothDevice>) {
-        presenter.updateDevices(devices)
-    }
+    override fun enable() = adapter.enableBluetooth(this)
 
-    fun enableBluetooth() = adapter.enableBluetooth()
+    override fun disable() = adapter.disableBluetooth(this)
 
-    fun disableBluetooth() = adapter.disableBluetooth()
-
-    fun bluetoothEnabled() = adapter.enabled
-
-    fun scanDevices() = adapter.scanDevices()
+    override fun isEnabled() = adapter.isEnabled()
 
 }
