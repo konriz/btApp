@@ -1,6 +1,7 @@
 package pl.com.tt.kapp
 
 import android.bluetooth.BluetoothDevice
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View

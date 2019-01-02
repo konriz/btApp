@@ -3,8 +3,10 @@ package pl.com.tt.kapp
 import android.bluetooth.BluetoothDevice
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Log.i("MainApp", savedInstanceState?.get("Device").toString())
+
         registerReceiver(presenter.getReceiver(), presenter.getReceiver().filter)
 
         viewManager = LinearLayoutManager(this)
@@ -31,6 +35,8 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        devicesListRecycler.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         presenter.setBtSwitch()
         enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
@@ -76,5 +82,14 @@ class MainActivity : AppCompatActivity(), BluetoothMVP.View {
         unregisterReceiver(presenter.driver.receiver)
         presenter.onDestroy()
         super.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        if(devicesList.isNotEmpty()){
+            outState?.run {
+                putString("Device", devicesList[0].name)
+            }
+        }
+        super.onSaveInstanceState(outState)
     }
 }

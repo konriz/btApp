@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kApp</string>
+    <string name="app_name">BtApp</string>
 
     <string name="bluetooth_enable_switch">Enable bluetooth</string>
     <string name="scan_button">Scan</string>
