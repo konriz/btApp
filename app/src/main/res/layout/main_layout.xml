@@ -16,19 +16,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="pl.com.tt.kapp.BluetoothFragment"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout="@layout/bluetooth_fragment" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </android.support.constraint.ConstraintLayout>
