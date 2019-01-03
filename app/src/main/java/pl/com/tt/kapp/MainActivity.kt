@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager
 import kotlinx.android.synthetic.main.main_layout.*
 
 private const val MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1
-private const val NUM_PAGES = 2
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,20 +26,8 @@ class MainActivity : AppCompatActivity() {
                 MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
         }
 
-        val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
-        pager.adapter = pagerAdapter
+        pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
 
-    }
-
-    private inner class ScreenSlidePagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
-        override fun getCount(): Int = NUM_PAGES
-        override fun getItem(p0: Int): Fragment {
-            when(p0){
-                0 -> return BluetoothFragment()
-                1 -> return WifiFragment()
-            }
-            return BluetoothFragment()
-        }
     }
 
 }
