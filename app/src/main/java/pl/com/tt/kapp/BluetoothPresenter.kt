@@ -23,7 +23,11 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
     fun getReceiver() = driver.receiver
 
     fun scanDevices() {
-        driver.scanDevices()
+        if(driver.isEnabled()){
+            driver.scanDevices()
+        } else {
+            view?.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
+        }
     }
 
     override fun onDiscoveryStarted() {
