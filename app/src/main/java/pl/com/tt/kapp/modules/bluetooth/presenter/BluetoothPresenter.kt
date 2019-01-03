@@ -1,10 +1,13 @@
-package pl.com.tt.kapp
+package pl.com.tt.kapp.modules.bluetooth.presenter
 
 import android.bluetooth.BluetoothDevice
 import android.widget.Toast
-import pl.com.tt.kapp.modules.bluetooth.BTDriver
+import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
+import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
 
-class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter, BluetoothMVP.ScanResultListener {
+class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter,
+    BluetoothMVP.ScanResultListener {
 
     val driver = BTDriver(this)
 
@@ -24,7 +27,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
 
     fun scanDevices() {
         if(driver.isEnabled()){
-            driver.scanDevices()
+            driver.scan()
         } else {
             view?.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }

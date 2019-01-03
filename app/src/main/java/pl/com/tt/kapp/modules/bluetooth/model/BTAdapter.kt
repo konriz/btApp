@@ -1,7 +1,6 @@
-package pl.com.tt.kapp.modules.bluetooth
+package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.util.Log
 
 class BTAdapter{

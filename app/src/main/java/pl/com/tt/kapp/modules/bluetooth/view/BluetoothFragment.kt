@@ -1,4 +1,4 @@
-package pl.com.tt.kapp
+package pl.com.tt.kapp.modules.bluetooth.view
 
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
@@ -10,7 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import kotlinx.android.synthetic.main.bluetooth_fragment.view.*
+import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
+import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
+import pl.com.tt.kapp.R
 
 
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
@@ -18,30 +22,29 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     private val presenter = BluetoothPresenter(this)
     private lateinit var viewAdapter: DevicesListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var devicesList : List<BluetoothDevice> = listOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.bluetooth_fragment, container, false)
+        return inflater.inflate(R.layout.bluetooth_fragment, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         activity?.registerReceiver(presenter.getReceiver(), presenter.getReceiver().filter)
 
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = DevicesListAdapter(devicesList)
+        viewAdapter = DevicesListAdapter(listOf())
 
-        view?.devicesListRecycler?.apply {
+        devicesListRecycler.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
 
-        view?.devicesListRecycler?.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
+        devicesListRecycler.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
 
-        return view
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        view?.enableBTswitch?.setOnCheckedChangeListener { _, isChecked ->
+        enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
                 presenter.enableBluetooth()
             } else {
@@ -49,7 +52,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
             }
         }
 
-        view?.scanButton?.setOnClickListener {
+        scanButton.setOnClickListener {
             presenter.scanDevices()
         }
     }
@@ -60,15 +63,15 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun showLoader() {
-        view?.progressBar?.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoader() {
-        view?.progressBar?.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun setSwitch(state: Boolean) {
-        view?.enableBTswitch?.isChecked = state
+        enableBTswitch.isChecked = state
     }
 
     override fun showToast(message: Int, length : Int) {
@@ -76,8 +79,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun updateRecycler(devices: List<BluetoothDevice>) {
-        devicesList = devices
-        viewAdapter.update(devicesList)
+        viewAdapter.update(devices)
     }
 
     override fun onDestroy() {

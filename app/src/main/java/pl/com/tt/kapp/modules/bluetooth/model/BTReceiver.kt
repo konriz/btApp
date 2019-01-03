@@ -1,4 +1,4 @@
-package pl.com.tt.kapp.modules.bluetooth
+package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import pl.com.tt.kapp.BluetoothMVP
+import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
 class BTReceiver(val presenter: BluetoothMVP.ScanResultListener) : BroadcastReceiver() {
 

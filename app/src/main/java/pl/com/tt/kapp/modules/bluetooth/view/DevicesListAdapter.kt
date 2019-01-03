@@ -1,14 +1,15 @@
-package pl.com.tt.kapp
+package pl.com.tt.kapp.modules.bluetooth.view
 
 import android.bluetooth.BluetoothDevice
-import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
+import pl.com.tt.kapp.R
 
-class DevicesListAdapter(private var devicesList : List<BluetoothDevice>) : RecyclerView.Adapter<DevicesListAdapter.DevicesListViewHolder>() {
+class DevicesListAdapter(private var devicesList : List<BluetoothDevice>)
+    : RecyclerView.Adapter<DevicesListAdapter.DevicesListViewHolder>() {
 
     class DevicesListViewHolder(val deviceRowView : View) : RecyclerView.ViewHolder(deviceRowView)
 
@@ -18,8 +19,8 @@ class DevicesListAdapter(private var devicesList : List<BluetoothDevice>) : Recy
     }
 
     override fun onBindViewHolder(p0: DevicesListViewHolder, p1: Int) {
-        p0.deviceRowView.deviceName.text = devicesList[p1].name
-        p0.deviceRowView.deviceAddress.text = devicesList[p1].address
+        p0.deviceRowView.name.text = devicesList[p1].name
+        p0.deviceRowView.address.text = devicesList[p1].address
     }
 
     override fun getItemCount() = devicesList.size

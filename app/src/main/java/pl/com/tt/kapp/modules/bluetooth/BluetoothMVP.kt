@@ -1,4 +1,4 @@
-package pl.com.tt.kapp
+package pl.com.tt.kapp.modules.bluetooth
 
 import android.bluetooth.BluetoothDevice
 
