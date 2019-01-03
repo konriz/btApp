@@ -36,7 +36,11 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
         view?.devicesListRecycler?.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
 
-        presenter.setBtSwitch()
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         view?.enableBTswitch?.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
                 presenter.enableBluetooth()
@@ -48,8 +52,11 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         view?.scanButton?.setOnClickListener {
             presenter.scanDevices()
         }
+    }
 
-        return view
+    override fun onResume() {
+        super.onResume()
+        presenter.setBtSwitch()
     }
 
     override fun showLoader() {
