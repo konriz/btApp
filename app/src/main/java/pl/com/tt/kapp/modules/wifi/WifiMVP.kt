@@ -21,4 +21,9 @@ class WifiMVP{
         fun updateRecycler(networks : List<WifiNetworkDTO>)
     }
 
+    interface Presentable{
+        fun attachPresenter(presenter : WifiMVP.ScanResultListener)
+        fun detachPresenter()
+    }
+
 }

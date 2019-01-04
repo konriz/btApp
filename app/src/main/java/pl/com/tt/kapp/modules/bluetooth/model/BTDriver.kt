@@ -3,9 +3,8 @@ package pl.com.tt.kapp.modules.bluetooth.model
 import android.bluetooth.BluetoothDevice
 import pl.com.tt.kapp.modules.Driver
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
-import pl.com.tt.kapp.modules.bluetooth.Presentable
 
-object BTDriver : Driver, Presentable, BluetoothMVP.ScanResultListener {
+object BTDriver : Driver, BluetoothMVP.Presentable, BluetoothMVP.ScanResultListener {
 
     private var listener : BluetoothMVP.ScanResultListener? = null
     var lastDevices : List<BluetoothDevice> = listOf()

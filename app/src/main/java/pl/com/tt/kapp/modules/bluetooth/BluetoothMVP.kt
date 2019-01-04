@@ -21,4 +21,9 @@ class BluetoothMVP{
         fun updateRecycler(devices : List<BluetoothDevice>)
     }
 
+    interface Presentable{
+        fun attachPresenter(presenter : ScanResultListener)
+        fun detachPresenter()
+    }
+
 }

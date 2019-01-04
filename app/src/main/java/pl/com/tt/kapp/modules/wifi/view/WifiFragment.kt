@@ -11,17 +11,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.wifi_fragment.*
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
+import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
 
 class WifiFragment : Fragment(), WifiMVP.View {
 
-    private val presenter = WifiPresenter(this)
+    private lateinit var presenter : WifiPresenter
     private lateinit var viewAdapter: NetworksListAdapter
     private lateinit var viewManager : RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        presenter = WifiPresenter(this)
         return inflater.inflate(R.layout.wifi_fragment, container, false)
     }
 
@@ -70,5 +73,10 @@ class WifiFragment : Fragment(), WifiMVP.View {
 
     override fun updateRecycler(networks: List<WifiNetworkDTO>) {
         TODO("Implement me")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }
