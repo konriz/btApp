@@ -6,6 +6,8 @@ class WifiMVP{
 
     interface Presenter{
         fun setWifiSwitch()
+        fun onWifiSwitch(state : Boolean)
+        fun onDestroy()
     }
 
     interface ScanResultListener{

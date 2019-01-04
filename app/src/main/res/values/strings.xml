@@ -21,6 +21,10 @@
     <string name="bluetooth_scanning">Bluetooth scanning...</string>
     <string name="deviceNameLabel">Device Name</string>
     <string name="deviceAddressLabel">Device Address</string>
+
     <string name="wifiNameLabel">SSID</string>
     <string name="wifi_enable_switch">Enable Wifi</string>
+    <string name="wifi_disabled">Wifi disabled</string>
+    <string name="wifi_scanning">Wifi scanning...</string>
+
 </resources>

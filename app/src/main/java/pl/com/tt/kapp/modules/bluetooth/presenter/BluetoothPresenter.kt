@@ -14,12 +14,12 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
         view?.updateRecycler(BTDriver.lastDevices)
     }
 
-    fun enableBluetooth(){
-        BTDriver.enable()
-    }
-
-    fun disableBluetooth(){
-        BTDriver.disable()
+    override fun onBluetoothSwitch(state: Boolean) {
+        if(state){
+            BTDriver.enable()
+        } else {
+            BTDriver.disable()
+        }
     }
 
     override fun setBtSwitch() {
@@ -44,7 +44,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
         view?.hideLoader()
     }
 
-    fun onDestroy(){
+    override fun onDestroy(){
         view = null
         BTDriver.detachPresenter()
     }

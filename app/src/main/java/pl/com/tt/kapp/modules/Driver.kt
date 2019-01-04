@@ -1,10 +1,19 @@
 package pl.com.tt.kapp.modules
 
-interface Driver {
+abstract class Driver {
 
-    fun enable()
-    fun disable()
-    fun isEnabled() : Boolean
-    fun scan()
+    protected abstract var adapter : NetworkingAdapter
+
+    fun enable() {
+        adapter.enable()
+    }
+    fun disable() {
+        adapter.disable()
+    }
+    fun isEnabled() = adapter.isEnabled()
+
+    fun scan() {
+        adapter.scan()
+    }
 
 }

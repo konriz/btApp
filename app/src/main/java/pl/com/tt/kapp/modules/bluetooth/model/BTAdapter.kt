@@ -2,12 +2,14 @@ package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothAdapter
 import android.util.Log
+import pl.com.tt.kapp.modules.NetworkingAdapter
 
-object BTAdapter{
+private const val TAG = "BT-Adapter"
+
+object BTAdapter : NetworkingAdapter{
     private val mBluetoothAdapter : BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
-    private val TAG : String = "BT-Adapter"
 
-    fun enableBluetooth(driver : BTDriver) {
+    override fun enable() {
         if(mBluetoothAdapter != null && !isEnabled())
         {
             mBluetoothAdapter.enable()
@@ -15,14 +17,14 @@ object BTAdapter{
         }
     }
 
-    fun disableBluetooth(driver : BTDriver) {
+    override fun disable() {
         if (mBluetoothAdapter != null && isEnabled()){
             mBluetoothAdapter.disable()
             Log.i(TAG, "Bluetooth disabled")
         }
     }
 
-    fun scanDevices(driver : BTDriver) {
+    override fun scan() {
         if(mBluetoothAdapter != null && isEnabled())
         {
             mBluetoothAdapter.startDiscovery()
@@ -30,7 +32,7 @@ object BTAdapter{
         }
     }
 
-    fun isEnabled() : Boolean{
+    override fun isEnabled() : Boolean{
         if (mBluetoothAdapter == null){
             return false
         }

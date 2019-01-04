@@ -6,6 +6,8 @@ class BluetoothMVP{
 
     interface Presenter{
         fun setBtSwitch()
+        fun onBluetoothSwitch(state : Boolean)
+        fun onDestroy()
     }
 
     interface ScanResultListener{

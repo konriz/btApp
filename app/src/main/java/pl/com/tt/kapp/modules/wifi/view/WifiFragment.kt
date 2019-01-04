@@ -24,15 +24,17 @@ class WifiFragment : Fragment(), WifiMVP.View {
     private lateinit var viewManager : RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewManager = LinearLayoutManager(activity)
+        viewAdapter = NetworksListAdapter(listOf())
         presenter = WifiPresenter(this)
+
         return inflater.inflate(R.layout.wifi_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = NetworksListAdapter(listOf())
+
 
         networksRecycler.apply {
             setHasFixedSize(true)
@@ -40,14 +42,10 @@ class WifiFragment : Fragment(), WifiMVP.View {
             adapter = viewAdapter
         }
 
-        networksRecycler.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
+        networksRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
         wifiSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                presenter.enableWifi()
-            } else {
-                presenter.disableWifi()
-            }
+            presenter.onWifiSwitch(isChecked)
         }
 
         wifiScanButton.setOnClickListener {
@@ -68,11 +66,11 @@ class WifiFragment : Fragment(), WifiMVP.View {
     }
 
     override fun showToast(message: Int, length: Int) {
-        Toast.makeText(activity, message, length).show()
+        Toast.makeText(context, message, length).show()
     }
 
     override fun updateRecycler(networks: List<WifiNetworkDTO>) {
-        TODO("Implement me")
+        viewAdapter.update(networks)
     }
 
     override fun onDestroy() {

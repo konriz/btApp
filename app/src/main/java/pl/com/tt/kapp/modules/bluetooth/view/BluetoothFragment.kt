@@ -16,7 +16,6 @@ import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 
-
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
     private lateinit var presenter : BluetoothPresenter
@@ -27,6 +26,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = DevicesListAdapter(listOf())
         presenter = BluetoothPresenter(this)
+
         return inflater.inflate(R.layout.bluetooth_fragment, container, false)
     }
 
@@ -43,11 +43,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         devicesListRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
         enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                presenter.enableBluetooth()
-            } else {
-                presenter.disableBluetooth()
-            }
+            presenter.onBluetoothSwitch(isChecked)
         }
 
         scanButton.setOnClickListener {

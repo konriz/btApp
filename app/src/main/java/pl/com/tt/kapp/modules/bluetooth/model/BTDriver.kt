@@ -2,9 +2,14 @@ package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothDevice
 import pl.com.tt.kapp.modules.Driver
+import pl.com.tt.kapp.modules.NetworkingAdapter
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
-object BTDriver : Driver, BluetoothMVP.Presentable, BluetoothMVP.ScanResultListener {
+object BTDriver : Driver(), BluetoothMVP.Presentable, BluetoothMVP.ScanResultListener {
+
+    override var adapter: NetworkingAdapter
+        get() = BTAdapter
+        set(value) {}
 
     private var listener : BluetoothMVP.ScanResultListener? = null
     var lastDevices : List<BluetoothDevice> = listOf()
@@ -25,13 +30,5 @@ object BTDriver : Driver, BluetoothMVP.Presentable, BluetoothMVP.ScanResultListe
         lastDevices = devices
         listener?.onDiscoveryFinished(lastDevices)
     }
-
-    override fun scan() = BTAdapter.scanDevices(this)
-
-    override fun enable() = BTAdapter.enableBluetooth(this)
-
-    override fun disable() = BTAdapter.disableBluetooth(this)
-
-    override fun isEnabled() = BTAdapter.isEnabled()
 
 }
