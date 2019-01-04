@@ -3,7 +3,7 @@ package pl.com.tt.kapp.modules.bluetooth.model
 import android.bluetooth.BluetoothAdapter
 import android.util.Log
 
-class BTAdapter{
+object BTAdapter{
     private val mBluetoothAdapter : BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
     private val TAG : String = "BT-Adapter"
 

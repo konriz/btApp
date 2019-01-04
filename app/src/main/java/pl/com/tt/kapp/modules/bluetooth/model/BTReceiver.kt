@@ -9,11 +9,11 @@ import android.content.IntentFilter
 import android.util.Log
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
-class BTReceiver(val presenter: BluetoothMVP.ScanResultListener) : BroadcastReceiver() {
+object BTReceiver : BroadcastReceiver() {
 
     private val devices : MutableSet<BluetoothDevice> = mutableSetOf()
     val filter = IntentFilter()
-    private val TAG : String = "BT-Receiver"
+    private const val TAG = "BT-Receiver"
 
     init {
         filter.addAction(BluetoothDevice.ACTION_FOUND)
@@ -32,7 +32,7 @@ class BTReceiver(val presenter: BluetoothMVP.ScanResultListener) : BroadcastRece
 
     private fun onDiscoveryStarted(){
         Log.i(TAG, "Discovery started")
-        presenter.onDiscoveryStarted()
+        BTDriver.onDiscoveryStarted()
         devices.clear()
     }
 
@@ -44,7 +44,7 @@ class BTReceiver(val presenter: BluetoothMVP.ScanResultListener) : BroadcastRece
     private fun onDiscoveryFinished() {
         Log.i(TAG,"Discovery finished")
         Log.i(TAG,"Devices : $devices")
-        presenter.onDiscoveryFinished(devices.toList())
+        BTDriver.onDiscoveryFinished(devices.toList())
     }
 
 }

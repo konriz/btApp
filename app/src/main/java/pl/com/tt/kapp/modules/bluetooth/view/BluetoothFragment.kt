@@ -11,29 +11,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.bluetooth_fragment.*
-import kotlinx.android.synthetic.main.bluetooth_fragment.view.*
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 
 
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
-    private val presenter = BluetoothPresenter(this)
+    private lateinit var presenter : BluetoothPresenter
     private lateinit var viewAdapter: DevicesListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewManager = LinearLayoutManager(activity)
+        viewAdapter = DevicesListAdapter(listOf())
+        presenter = BluetoothPresenter(this)
         return inflater.inflate(R.layout.bluetooth_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        activity?.registerReceiver(presenter.getReceiver(), presenter.getReceiver().filter)
-
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = DevicesListAdapter(listOf())
+        activity?.registerReceiver(BTReceiver, BTReceiver.filter)
 
         devicesListRecycler.apply {
             setHasFixedSize(true)
@@ -41,8 +40,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
             adapter = viewAdapter
         }
 
-        devicesListRecycler.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
-
+        devicesListRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
         enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
@@ -75,7 +73,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun showToast(message: Int, length : Int) {
-        Toast.makeText(activity, message, length).show()
+        Toast.makeText(context, message, length).show()
     }
 
     override fun updateRecycler(devices: List<BluetoothDevice>) {
@@ -83,9 +81,8 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun onDestroy() {
-        activity?.unregisterReceiver(presenter.driver.receiver)
+        activity?.unregisterReceiver(BTReceiver)
         presenter.onDestroy()
         super.onDestroy()
     }
-
 }

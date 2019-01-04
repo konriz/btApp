@@ -9,25 +9,26 @@ import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
 class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter,
     BluetoothMVP.ScanResultListener {
 
-    val driver = BTDriver(this)
+    init {
+        BTDriver.attachPresenter(this)
+        view?.updateRecycler(BTDriver.lastDevices)
+    }
 
     fun enableBluetooth(){
-        driver.enable()
+        BTDriver.enable()
     }
 
     fun disableBluetooth(){
-        driver.disable()
+        BTDriver.disable()
     }
 
     override fun setBtSwitch() {
-        view?.setSwitch(driver.isEnabled())
+        view?.setSwitch(BTDriver.isEnabled())
     }
 
-    fun getReceiver() = driver.receiver
-
     fun scanDevices() {
-        if(driver.isEnabled()){
-            driver.scan()
+        if(BTDriver.isEnabled()){
+            BTDriver.scan()
         } else {
             view?.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
@@ -45,6 +46,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
 
     fun onDestroy(){
         view = null
+        BTDriver.detachPresenter()
     }
 }
 

@@ -1,18 +1,38 @@
 package pl.com.tt.kapp.modules.bluetooth.model
 
-import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
+import android.bluetooth.BluetoothDevice
 import pl.com.tt.kapp.modules.Driver
+import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
+import pl.com.tt.kapp.modules.bluetooth.Presentable
 
-class BTDriver (val presenter : BluetoothPresenter) : Driver {
-    private val adapter = BTAdapter()
-    val receiver = BTReceiver(presenter)
+object BTDriver : Driver, Presentable, BluetoothMVP.ScanResultListener {
 
-    override fun scan() = adapter.scanDevices(this)
+    private var listener : BluetoothMVP.ScanResultListener? = null
+    var lastDevices : List<BluetoothDevice> = listOf()
 
-    override fun enable() = adapter.enableBluetooth(this)
+    override fun attachPresenter(presenter: BluetoothMVP.ScanResultListener){
+        listener = presenter
+    }
 
-    override fun disable() = adapter.disableBluetooth(this)
+    override fun detachPresenter() {
+        listener = null
+    }
 
-    override fun isEnabled() = adapter.isEnabled()
+    override fun onDiscoveryStarted(){
+        listener?.onDiscoveryStarted()
+    }
+
+    override fun onDiscoveryFinished(devices : List<BluetoothDevice>){
+        lastDevices = devices
+        listener?.onDiscoveryFinished(lastDevices)
+    }
+
+    override fun scan() = BTAdapter.scanDevices(this)
+
+    override fun enable() = BTAdapter.enableBluetooth(this)
+
+    override fun disable() = BTAdapter.disableBluetooth(this)
+
+    override fun isEnabled() = BTAdapter.isEnabled()
 
 }
