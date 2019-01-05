@@ -33,6 +33,14 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
         }
     }
 
+    override fun onInterfaceEnabled() {
+        view?.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
+    }
+
+    override fun onInterfaceDisabled() {
+        view?.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
+    }
+
     override fun onDiscoveryStarted() {
         view?.showToast(R.string.wifi_scanning, Toast.LENGTH_SHORT)
         view?.showLoader()

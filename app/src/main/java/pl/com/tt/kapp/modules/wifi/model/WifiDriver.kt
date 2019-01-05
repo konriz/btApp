@@ -4,11 +4,7 @@ import pl.com.tt.kapp.modules.Driver
 import pl.com.tt.kapp.modules.NetworkingAdapter
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 
-object WifiDriver : Driver(), WifiMVP.ScanResultListener, WifiMVP.Presentable {
-
-    override var adapter: NetworkingAdapter
-        get() = WifiAdapter
-        set(value) {}
+object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.ScanResultListener, WifiMVP.Presentable {
 
     private var listener : WifiMVP.ScanResultListener? = null
     var lastNetworks : List<WifiNetworkDTO> = listOf()
@@ -29,5 +25,13 @@ object WifiDriver : Driver(), WifiMVP.ScanResultListener, WifiMVP.Presentable {
     override fun onDiscoveryFinished(networks: List<WifiNetworkDTO>) {
         lastNetworks = networks
         listener?.onDiscoveryFinished(lastNetworks)
+    }
+
+    override fun onInterfaceEnabled(){
+        listener?.onInterfaceEnabled()
+    }
+
+    override fun onInterfaceDisabled(){
+        listener?.onInterfaceDisabled()
     }
 }

@@ -5,11 +5,7 @@ import pl.com.tt.kapp.modules.Driver
 import pl.com.tt.kapp.modules.NetworkingAdapter
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
-object BTDriver : Driver(), BluetoothMVP.Presentable, BluetoothMVP.ScanResultListener {
-
-    override var adapter: NetworkingAdapter
-        get() = BTAdapter
-        set(value) {}
+object BTDriver : Driver(adapter = BTAdapter), BluetoothMVP.Presentable, BluetoothMVP.ScanResultListener {
 
     private var listener : BluetoothMVP.ScanResultListener? = null
     var lastDevices : List<BluetoothDevice> = listOf()

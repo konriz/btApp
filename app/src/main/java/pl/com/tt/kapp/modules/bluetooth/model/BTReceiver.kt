@@ -9,11 +9,10 @@ import android.content.IntentFilter
 import android.util.Log
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
+private const val TAG = "BT-Receiver"
 object BTReceiver : BroadcastReceiver() {
-
     private val devices : MutableSet<BluetoothDevice> = mutableSetOf()
     val filter = IntentFilter()
-    private const val TAG = "BT-Receiver"
 
     init {
         filter.addAction(BluetoothDevice.ACTION_FOUND)

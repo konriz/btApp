@@ -15,6 +15,7 @@ import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
+import pl.com.tt.kapp.modules.wifi.model.WifiReceiver
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
 
 class WifiFragment : Fragment(), WifiMVP.View {
@@ -34,7 +35,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        activity?.registerReceiver(WifiReceiver, WifiReceiver.filter)
 
         networksRecycler.apply {
             setHasFixedSize(true)

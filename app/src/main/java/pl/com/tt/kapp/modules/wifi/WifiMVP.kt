@@ -11,6 +11,8 @@ class WifiMVP{
     }
 
     interface ScanResultListener{
+        fun onInterfaceEnabled()
+        fun onInterfaceDisabled()
         fun onDiscoveryStarted()
         fun onDiscoveryFinished(networks : List<WifiNetworkDTO>)
     }
