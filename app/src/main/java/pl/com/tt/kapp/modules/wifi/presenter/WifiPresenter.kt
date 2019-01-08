@@ -34,10 +34,12 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
     }
 
     override fun onInterfaceEnabled() {
+        view?.setSwitch(true)
         view?.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
     }
 
     override fun onInterfaceDisabled() {
+        view?.setSwitch(false)
         view?.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
     }
 

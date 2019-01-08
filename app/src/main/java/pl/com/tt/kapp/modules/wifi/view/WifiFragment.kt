@@ -1,5 +1,7 @@
 package pl.com.tt.kapp.modules.wifi.view
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -11,9 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.wifi_fragment.*
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
-import pl.com.tt.kapp.modules.wifi.model.WifiDriver
+import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 import pl.com.tt.kapp.modules.wifi.model.WifiReceiver
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
@@ -34,6 +35,8 @@ class WifiFragment : Fragment(), WifiMVP.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        WifiAdapter.wifiService = context?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
         activity?.registerReceiver(WifiReceiver, WifiReceiver.filter)
 

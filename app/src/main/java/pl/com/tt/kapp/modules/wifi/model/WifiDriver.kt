@@ -1,7 +1,6 @@
 package pl.com.tt.kapp.modules.wifi.model
 
 import pl.com.tt.kapp.modules.Driver
-import pl.com.tt.kapp.modules.NetworkingAdapter
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 
 object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.ScanResultListener, WifiMVP.Presentable {
