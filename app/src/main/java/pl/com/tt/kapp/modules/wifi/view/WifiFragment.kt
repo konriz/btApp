@@ -80,5 +80,6 @@ class WifiFragment : Fragment(), WifiMVP.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+        activity?.unregisterReceiver(WifiReceiver)
     }
 }

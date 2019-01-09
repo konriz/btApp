@@ -1,6 +1,8 @@
 package pl.com.tt.kapp
 
 import android.Manifest
+import android.annotation.TargetApi
+import android.content.pm.PackageManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,19 +21,32 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
-        askForPermissions()
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            askForPermissions()
+        }
 
     }
 
+    @TargetApi(23)
     private fun askForPermissions(){
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE),
-        1)
+
+        val permissions = arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.CHANGE_WIFI_STATE)
+
+        for (permission in permissions){
+            if(checkSelfPermission(permission) == PackageManager.PERMISSION_DENIED){
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(permission),
+                    1)
+            }
+        }
+
+
     }
 
 }

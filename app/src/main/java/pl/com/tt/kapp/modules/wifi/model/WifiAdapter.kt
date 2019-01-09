@@ -25,6 +25,7 @@ object WifiAdapter : NetworkingAdapter {
          */
         wifiService.startScan()
 
+
         Log.i(TAG, "Wifi Scanning")
     }
 
@@ -34,6 +35,7 @@ object WifiAdapter : NetworkingAdapter {
 
     fun onScanResultsAvailable(){
         val results = wifiService.scanResults
+        WifiDriver.onDiscoveryFinished(results)
         Log.i(TAG, results.size.toString())
     }
 

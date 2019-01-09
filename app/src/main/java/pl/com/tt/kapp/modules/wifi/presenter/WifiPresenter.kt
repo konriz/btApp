@@ -1,5 +1,6 @@
 package pl.com.tt.kapp.modules.wifi.presenter
 
+import android.net.wifi.ScanResult
 import android.widget.Toast
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.wifi.WifiMVP
@@ -10,7 +11,7 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
 
     init {
         WifiDriver.attachPresenter(this)
-        view?.updateRecycler(WifiDriver.lastNetworks)
+        view?.updateRecycler(convertToDto(WifiDriver.lastNetworks))
     }
 
     override fun setWifiSwitch() {
@@ -25,9 +26,18 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
         }
     }
 
+    private fun convertToDto(networks : List<ScanResult>) : List<WifiNetworkDTO>{
+        val dtos = mutableListOf<WifiNetworkDTO>()
+        for(network in networks){
+            dtos.add(WifiNetworkDTO(network.SSID, network.BSSID))
+        }
+        return dtos.toList()
+    }
+
     fun scanNetworks(){
         if(WifiDriver.isEnabled()){
             WifiDriver.scan()
+            onDiscoveryStarted()
         } else {
             view?.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
         }
@@ -48,9 +58,9 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
         view?.showLoader()
     }
 
-    override fun onDiscoveryFinished(networks: List<WifiNetworkDTO>) {
+    override fun onDiscoveryFinished(networks: List<ScanResult>) {
         view?.hideLoader()
-        view?.updateRecycler(networks)
+        view?.updateRecycler(convertToDto(networks))
     }
 
     override fun onDestroy(){

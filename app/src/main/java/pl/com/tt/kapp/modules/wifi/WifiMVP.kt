@@ -1,5 +1,6 @@
 package pl.com.tt.kapp.modules.wifi
 
+import android.net.wifi.ScanResult
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 
 class WifiMVP{
@@ -14,7 +15,7 @@ class WifiMVP{
         fun onInterfaceEnabled()
         fun onInterfaceDisabled()
         fun onDiscoveryStarted()
-        fun onDiscoveryFinished(networks : List<WifiNetworkDTO>)
+        fun onDiscoveryFinished(networks : List<ScanResult>)
     }
 
     interface View{

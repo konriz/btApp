@@ -27,5 +27,6 @@
     <string name="wifi_disabled">Wifi disabled</string>
     <string name="wifi_scanning">Wifi scanning...</string>
     <string name="wifi_enabled">Wifi enabled</string>
+    <string name="wifiBssidLabel">BSSID</string>
 
 </resources>

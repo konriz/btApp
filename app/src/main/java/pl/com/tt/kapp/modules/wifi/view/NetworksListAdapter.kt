@@ -20,6 +20,7 @@ class NetworksListAdapter(private var networks : List<WifiNetworkDTO>)
 
     override fun onBindViewHolder(p0: NetworksListViewHolder, p1: Int) {
         p0.networkRowView.name.text = networks[p1].ssid
+        p0.networkRowView.address.text = networks[p1].bssid
     }
 
     override fun getItemCount(): Int {
