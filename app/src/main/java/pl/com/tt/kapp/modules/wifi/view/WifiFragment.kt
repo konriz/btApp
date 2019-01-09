@@ -53,7 +53,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
         }
 
         wifiScanButton.setOnClickListener {
-            presenter.scanNetworks()
+            presenter.onScanButtonPressed()
         }
     }
 
@@ -64,6 +64,8 @@ class WifiFragment : Fragment(), WifiMVP.View {
     override fun hideLoader() {
         progressBar.visibility = View.GONE
     }
+
+    override fun switchOn() = wifiSwitch.isChecked
 
     override fun setSwitch(state: Boolean) {
         wifiSwitch.isChecked = state

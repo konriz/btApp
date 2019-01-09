@@ -7,15 +7,15 @@ import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 
-class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanResultListener {
+class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanResultListener {
 
     init {
         WifiDriver.attachPresenter(this)
-        view?.updateRecycler(convertToDto(WifiDriver.lastNetworks))
+        view.updateRecycler(convertToDto(WifiDriver.lastNetworks))
     }
 
-    override fun setWifiSwitch() {
-        view?.setSwitch(true)
+    override fun setWifiSwitch(state : Boolean) {
+        view.setSwitch(state)
     }
 
     override fun onWifiSwitch(state: Boolean) {
@@ -34,37 +34,42 @@ class WifiPresenter(var view : WifiMVP.View?) : WifiMVP.Presenter, WifiMVP.ScanR
         return dtos.toList()
     }
 
-    fun scanNetworks(){
+    override fun onScanButtonPressed(){
         if(WifiDriver.isEnabled()){
             WifiDriver.scan()
             onDiscoveryStarted()
         } else {
-            view?.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
+            view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
         }
     }
 
     override fun onInterfaceEnabled() {
-        view?.setSwitch(true)
-        view?.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
+        if(!view.switchOn()){
+            view.setSwitch(true)
+        }
+        view.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
     }
 
     override fun onInterfaceDisabled() {
-        view?.setSwitch(false)
-        view?.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
+        if(view.switchOn()){
+            view.setSwitch(false)
+        }
+        view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
     }
 
     override fun onDiscoveryStarted() {
-        view?.showToast(R.string.wifi_scanning, Toast.LENGTH_SHORT)
-        view?.showLoader()
+        view.showToast(R.string.wifi_scanning, Toast.LENGTH_SHORT)
+        view.showLoader()
     }
 
     override fun onDiscoveryFinished(networks: List<ScanResult>) {
-        view?.hideLoader()
-        view?.updateRecycler(convertToDto(networks))
+        view.hideLoader()
+        view.updateRecycler(convertToDto(networks))
     }
 
     override fun onDestroy(){
-        view = null
+//        Uncomment this in case of memory leaks
+//        view = null
         WifiDriver.detachPresenter()
     }
 }

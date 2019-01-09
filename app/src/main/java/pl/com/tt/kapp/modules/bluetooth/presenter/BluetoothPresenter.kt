@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice
 import android.widget.Toast
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
 import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
 
 class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter,
@@ -11,7 +12,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
 
     init {
         BTDriver.attachPresenter(this)
-        view?.updateRecycler(BTDriver.lastDevices)
+        view?.updateRecycler(convertToDto(BTDriver.lastDevices))
     }
 
     override fun onBluetoothSwitch(state: Boolean) {
@@ -26,7 +27,15 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
         view?.setSwitch(BTDriver.isEnabled())
     }
 
-    fun scanDevices() {
+    private fun convertToDto(devices: List<BluetoothDevice>) : List<BTDeviceDTO>{
+        val devicesDtos = mutableListOf<BTDeviceDTO>()
+        for(device in devices){
+            devicesDtos.add(BTDeviceDTO(device.name, device.address))
+        }
+        return devicesDtos.toList()
+    }
+
+    override fun onScanButtonPressed() {
         if(BTDriver.isEnabled()){
             BTDriver.scan()
         } else {
@@ -40,7 +49,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
     }
 
     override fun onDiscoveryFinished(devices: List<BluetoothDevice>) {
-        view?.updateRecycler(devices)
+        view?.updateRecycler(convertToDto(devices))
         view?.hideLoader()
     }
 

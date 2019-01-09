@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
@@ -47,7 +48,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         }
 
         scanButton.setOnClickListener {
-            presenter.scanDevices()
+            presenter.onScanButtonPressed()
         }
     }
 
@@ -72,7 +73,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(devices: List<BluetoothDevice>) {
+    override fun updateRecycler(devices: List<BTDeviceDTO>) {
         viewAdapter.update(devices)
     }
 

@@ -6,7 +6,8 @@ import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 class WifiMVP{
 
     interface Presenter{
-        fun setWifiSwitch()
+        fun onScanButtonPressed()
+        fun setWifiSwitch(state : Boolean)
         fun onWifiSwitch(state : Boolean)
         fun onDestroy()
     }
@@ -21,6 +22,7 @@ class WifiMVP{
     interface View{
         fun showLoader()
         fun hideLoader()
+        fun switchOn() : Boolean
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
         fun updateRecycler(networks : List<WifiNetworkDTO>)
