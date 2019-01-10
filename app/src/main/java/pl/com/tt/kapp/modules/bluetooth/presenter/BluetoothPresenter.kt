@@ -5,26 +5,26 @@ import android.widget.Toast
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
-import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDriver
 
 class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     BluetoothMVP.ScanResultListener {
 
     init {
-        BTDriver.attachPresenter(this)
-        view.updateRecycler(convertToDto(BTDriver.lastDevices))
+        BluetoothDriver.attachPresenter(this)
+        view.updateRecycler(convertToDto(BluetoothDriver.lastDevices))
     }
 
     override fun onBluetoothSwitch(state: Boolean) {
         if(state){
-            BTDriver.enable()
+            BluetoothDriver.enable()
         } else {
-            BTDriver.disable()
+            BluetoothDriver.disable()
         }
     }
 
     override fun setBtSwitch() {
-        view.setSwitch(BTDriver.isEnabled())
+        view.setSwitch(BluetoothDriver.isEnabled())
     }
 
     private fun convertToDto(devices: List<BluetoothDevice>) : List<BTDeviceDTO>{
@@ -36,8 +36,8 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     }
 
     override fun onScanButtonPressed() {
-        if(BTDriver.isEnabled()){
-            BTDriver.scan()
+        if(BluetoothDriver.isEnabled()){
+            BluetoothDriver.scan()
         } else {
             view.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
@@ -56,7 +56,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     override fun onDestroy(){
 //        Uncomment this in case of memory leaks
 //        view = null
-        BTDriver.detachPresenter()
+        BluetoothDriver.detachPresenter()
     }
 }
 

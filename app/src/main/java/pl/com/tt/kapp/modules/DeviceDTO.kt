@@ -1,4 +1,5 @@
 package pl.com.tt.kapp.modules
 
-abstract class DeviceDTO(val name:String?, val address:String) {
-}
+import android.location.Location
+
+abstract class DeviceDTO(val name:String?, val address:String, val location:Location?)

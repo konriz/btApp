@@ -3,7 +3,7 @@ package pl.com.tt.kapp.modules.wifi.presenter
 import android.net.wifi.ScanResult
 import android.widget.Toast
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.gps.model.GPSDriver
+import pl.com.tt.kapp.modules.location.model.LocationDriver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
@@ -38,7 +38,7 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
     override fun onScanButtonPressed(){
         if(WifiDriver.isEnabled()){
             WifiDriver.scan()
-            GPSDriver.scan()
+            LocationDriver.scan()
             onDiscoveryStarted()
         } else {
             view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)

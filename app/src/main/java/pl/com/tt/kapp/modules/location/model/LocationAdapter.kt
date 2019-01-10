@@ -6,7 +6,7 @@ import pl.com.tt.kapp.modules.NetworkingAdapter
 
 const val TAG = "GPS-Adapter"
 
-object GPSAdapter : NetworkingAdapter {
+object LocationAdapter : NetworkingAdapter {
 
     lateinit var gpsService : FusedLocationProviderClient
 
