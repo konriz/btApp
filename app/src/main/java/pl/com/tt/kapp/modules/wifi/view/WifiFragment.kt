@@ -1,6 +1,7 @@
 package pl.com.tt.kapp.modules.wifi.view
 
 import android.content.Context
+import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.wifi_fragment.*
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.gps.model.GPSAdapter
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
