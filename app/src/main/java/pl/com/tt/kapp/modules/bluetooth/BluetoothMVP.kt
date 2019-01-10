@@ -1,7 +1,7 @@
 package pl.com.tt.kapp.modules.bluetooth
 
 import android.bluetooth.BluetoothDevice
-import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
+import pl.com.tt.kapp.ScanResultsList
 
 class BluetoothMVP{
 
@@ -22,7 +22,7 @@ class BluetoothMVP{
         fun hideLoader()
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
-        fun updateRecycler(devices : List<BTDeviceDTO>)
+        fun updateRecycler(devices : ScanResultsList)
     }
 
     interface Presentable{

@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.DeviceDTO
-import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
 
-class DevicesListAdapter(private var devicesList : List<DeviceDTO>)
+class DevicesListAdapter(private var devices : ScanResultsList)
     : RecyclerView.Adapter<DevicesListAdapter.DevicesListViewHolder>() {
 
     class DevicesListViewHolder(val deviceRowView : View) : RecyclerView.ViewHolder(deviceRowView)
@@ -20,14 +19,14 @@ class DevicesListAdapter(private var devicesList : List<DeviceDTO>)
     }
 
     override fun onBindViewHolder(p0: DevicesListViewHolder, p1: Int) {
-        p0.deviceRowView.name.text = devicesList[p1].name
-        p0.deviceRowView.address.text = devicesList[p1].address
+        p0.deviceRowView.name.text = devices.list[p1].name
+        p0.deviceRowView.address.text = devices.list[p1].address
     }
 
-    override fun getItemCount() = devicesList.size
+    override fun getItemCount() = devices.list.size
 
-    fun update(devices : List<DeviceDTO>){
-        devicesList = devices
+    fun update(devices : ScanResultsList){
+        this.devices = devices
         notifyDataSetChanged()
     }
 }

@@ -2,10 +2,13 @@ package pl.com.tt.kapp.modules.bluetooth.presenter
 
 import android.bluetooth.BluetoothDevice
 import android.widget.Toast
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDeviceDTO
 import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDriver
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothResultsList
+import pl.com.tt.kapp.modules.location.model.LocationDriver
 
 class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     BluetoothMVP.ScanResultListener {
@@ -27,12 +30,12 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
         view.setSwitch(BluetoothDriver.isEnabled())
     }
 
-    private fun convertToDto(devices: List<BluetoothDevice>) : List<BTDeviceDTO>{
-        val devicesDtos = mutableListOf<BTDeviceDTO>()
+    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList{
+        val devicesDtos = mutableListOf<BluetoothDeviceDTO>()
         for(device in devices){
-            devicesDtos.add(BTDeviceDTO(device))
+            devicesDtos.add(BluetoothDeviceDTO(device))
         }
-        return devicesDtos.toList()
+        return BluetoothResultsList(devicesDtos, LocationDriver.lastLocation)
     }
 
     override fun onScanButtonPressed() {
