@@ -2,42 +2,45 @@ package pl.com.tt.kapp.modules.bluetooth.presenter
 
 import android.bluetooth.BluetoothDevice
 import android.widget.Toast
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
-import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDeviceDTO
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDriver
+import pl.com.tt.kapp.modules.bluetooth.model.BluetoothResultsList
+import pl.com.tt.kapp.modules.location.model.LocationDriver
 
 class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     BluetoothMVP.ScanResultListener {
 
     init {
-        BTDriver.attachPresenter(this)
-        view.updateRecycler(convertToDto(BTDriver.lastDevices))
+        BluetoothDriver.attachPresenter(this)
+        view.updateRecycler(convertToDto(BluetoothDriver.lastDevices))
     }
 
     override fun onBluetoothSwitch(state: Boolean) {
         if(state){
-            BTDriver.enable()
+            BluetoothDriver.enable()
         } else {
-            BTDriver.disable()
+            BluetoothDriver.disable()
         }
     }
 
     override fun setBtSwitch() {
-        view.setSwitch(BTDriver.isEnabled())
+        view.setSwitch(BluetoothDriver.isEnabled())
     }
 
-    private fun convertToDto(devices: List<BluetoothDevice>) : List<BTDeviceDTO>{
-        val devicesDtos = mutableListOf<BTDeviceDTO>()
+    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList{
+        val devicesDtos = mutableListOf<BluetoothDeviceDTO>()
         for(device in devices){
-            devicesDtos.add(BTDeviceDTO(device))
+            devicesDtos.add(BluetoothDeviceDTO(device))
         }
-        return devicesDtos.toList()
+        return BluetoothResultsList(devicesDtos, LocationDriver.lastLocation)
     }
 
     override fun onScanButtonPressed() {
-        if(BTDriver.isEnabled()){
-            BTDriver.scan()
+        if(BluetoothDriver.isEnabled()){
+            BluetoothDriver.scan()
         } else {
             view.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
@@ -56,7 +59,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     override fun onDestroy(){
 //        Uncomment this in case of memory leaks
 //        view = null
-        BTDriver.detachPresenter()
+        BluetoothDriver.detachPresenter()
     }
 }
 

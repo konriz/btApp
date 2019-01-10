@@ -1,15 +1,13 @@
-package pl.com.tt.kapp.modules.gps.model
+package pl.com.tt.kapp.modules.location.model
 
 import android.location.Location
 import pl.com.tt.kapp.modules.Driver
 
-object GPSDriver : Driver(adapter = GPSAdapter){
+object LocationDriver : Driver(adapter = LocationAdapter){
 
     var lastLocation : Location? = null
 
     fun updateLocation(location : Location?){
         lastLocation = location
-
-
     }
 }

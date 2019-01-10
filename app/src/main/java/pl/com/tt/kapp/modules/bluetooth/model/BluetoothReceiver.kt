@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
 private const val TAG = "BT-Receiver"
 object BTReceiver : BroadcastReceiver() {
@@ -31,7 +30,7 @@ object BTReceiver : BroadcastReceiver() {
 
     private fun onDiscoveryStarted(){
         Log.i(TAG, "Discovery started")
-        BTDriver.onDiscoveryStarted()
+        BluetoothDriver.onDiscoveryStarted()
         devices.clear()
     }
 
@@ -43,7 +42,7 @@ object BTReceiver : BroadcastReceiver() {
     private fun onDiscoveryFinished() {
         Log.i(TAG,"Discovery finished")
         Log.i(TAG,"Devices : $devices")
-        BTDriver.onDiscoveryFinished(devices.toList())
+        BluetoothDriver.onDiscoveryFinished(devices.toList())
     }
 
 }

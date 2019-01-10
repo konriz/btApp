@@ -1,7 +1,6 @@
 package pl.com.tt.kapp.modules.wifi.view
 
 import android.content.Context
-import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,11 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.wifi_fragment.*
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.gps.model.GPSAdapter
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
-import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 import pl.com.tt.kapp.modules.wifi.model.WifiReceiver
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
 
@@ -29,7 +27,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = NetworksListAdapter(listOf())
+        viewAdapter = NetworksListAdapter(ScanResultsList.EmptyList)
         presenter = WifiPresenter(this)
 
         return inflater.inflate(R.layout.wifi_fragment, container, false)
@@ -77,7 +75,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(networks: List<WifiNetworkDTO>) {
+    override fun updateRecycler(networks: ScanResultsList) {
         viewAdapter.update(networks)
     }
 

@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.DeviceDTO
-import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 
-class NetworksListAdapter(private var networks : List<DeviceDTO>)
+class NetworksListAdapter(private var networks : ScanResultsList)
     : RecyclerView.Adapter<NetworksListAdapter.NetworksListViewHolder>() {
 
     class NetworksListViewHolder(val networkRowView: View) : RecyclerView.ViewHolder(networkRowView)
@@ -20,15 +19,15 @@ class NetworksListAdapter(private var networks : List<DeviceDTO>)
     }
 
     override fun onBindViewHolder(p0: NetworksListViewHolder, p1: Int) {
-        p0.networkRowView.name.text = networks[p1].name
-        p0.networkRowView.address.text = networks[p1].address
+        p0.networkRowView.name.text = networks.list[p1].name
+        p0.networkRowView.address.text = networks.list[p1].address
     }
 
     override fun getItemCount(): Int {
-        return networks.size
+        return networks.list.size
     }
 
-    fun update(newNetworks : List<DeviceDTO>){
+    fun update(newNetworks : ScanResultsList){
         networks = newNetworks
         notifyDataSetChanged()
     }

@@ -2,11 +2,13 @@ package pl.com.tt.kapp.modules.wifi.presenter
 
 import android.net.wifi.ScanResult
 import android.widget.Toast
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.gps.model.GPSDriver
+import pl.com.tt.kapp.modules.location.model.LocationDriver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
+import pl.com.tt.kapp.modules.wifi.model.WifiResultsList
 
 class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanResultListener {
 
@@ -27,18 +29,19 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
         }
     }
 
-    private fun convertToDto(networks : List<ScanResult>) : List<WifiNetworkDTO>{
+    private fun convertToDto(networks : List<ScanResult>) : ScanResultsList{
         val dtos = mutableListOf<WifiNetworkDTO>()
         for(network in networks){
             dtos.add(WifiNetworkDTO(network))
         }
-        return dtos.toList()
+
+        return WifiResultsList(dtos.toList(), LocationDriver.lastLocation)
     }
 
     override fun onScanButtonPressed(){
         if(WifiDriver.isEnabled()){
             WifiDriver.scan()
-            GPSDriver.scan()
+            LocationDriver.scan()
             onDiscoveryStarted()
         } else {
             view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)

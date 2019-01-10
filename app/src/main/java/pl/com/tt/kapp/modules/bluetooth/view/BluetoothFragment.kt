@@ -1,6 +1,5 @@
 package pl.com.tt.kapp.modules.bluetooth.view
 
-import android.bluetooth.BluetoothDevice
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -11,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.bluetooth_fragment.*
-import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
-import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
+import pl.com.tt.kapp.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
+import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
+import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
@@ -25,7 +24,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = DevicesListAdapter(listOf())
+        viewAdapter = DevicesListAdapter(ScanResultsList.EmptyList)
         presenter = BluetoothPresenter(this)
 
         return inflater.inflate(R.layout.bluetooth_fragment, container, false)
@@ -73,7 +72,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(devices: List<BTDeviceDTO>) {
+    override fun updateRecycler(devices: ScanResultsList) {
         viewAdapter.update(devices)
     }
 

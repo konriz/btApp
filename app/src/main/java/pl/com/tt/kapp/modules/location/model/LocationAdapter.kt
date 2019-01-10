@@ -1,4 +1,4 @@
-package pl.com.tt.kapp.modules.gps.model
+package pl.com.tt.kapp.modules.location.model
 
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -6,7 +6,7 @@ import pl.com.tt.kapp.modules.NetworkingAdapter
 
 const val TAG = "GPS-Adapter"
 
-object GPSAdapter : NetworkingAdapter {
+object LocationAdapter : NetworkingAdapter {
 
     lateinit var gpsService : FusedLocationProviderClient
 
@@ -27,7 +27,7 @@ object GPSAdapter : NetworkingAdapter {
     private fun getLastLocation() {
         try{
             gpsService.lastLocation.addOnSuccessListener {
-                GPSDriver.updateLocation(it)
+                LocationDriver.updateLocation(it)
                 Log.i(TAG, "Last location passed to driver")
             }
         } catch (e : SecurityException){
