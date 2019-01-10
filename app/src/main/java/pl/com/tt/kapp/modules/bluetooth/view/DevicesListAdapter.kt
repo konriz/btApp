@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
 
-class DevicesListAdapter(private var devicesList : List<BTDeviceDTO>)
+class DevicesListAdapter(private var devicesList : List<DeviceDTO>)
     : RecyclerView.Adapter<DevicesListAdapter.DevicesListViewHolder>() {
 
     class DevicesListViewHolder(val deviceRowView : View) : RecyclerView.ViewHolder(deviceRowView)
@@ -25,7 +26,7 @@ class DevicesListAdapter(private var devicesList : List<BTDeviceDTO>)
 
     override fun getItemCount() = devicesList.size
 
-    fun update(devices : List<BTDeviceDTO>){
+    fun update(devices : List<DeviceDTO>){
         devicesList = devices
         notifyDataSetChanged()
     }

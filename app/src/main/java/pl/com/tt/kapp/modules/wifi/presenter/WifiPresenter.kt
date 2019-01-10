@@ -29,7 +29,7 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
     private fun convertToDto(networks : List<ScanResult>) : List<WifiNetworkDTO>{
         val dtos = mutableListOf<WifiNetworkDTO>()
         for(network in networks){
-            dtos.add(WifiNetworkDTO(network.SSID, network.BSSID))
+            dtos.add(WifiNetworkDTO(network))
         }
         return dtos.toList()
     }

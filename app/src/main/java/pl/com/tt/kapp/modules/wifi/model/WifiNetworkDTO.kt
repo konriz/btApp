@@ -1,3 +1,6 @@
 package pl.com.tt.kapp.modules.wifi.model
 
-data class WifiNetworkDTO(val name : String, val address : String)
+import android.net.wifi.ScanResult
+import pl.com.tt.kapp.modules.DeviceDTO
+
+data class WifiNetworkDTO(val network : ScanResult) : DeviceDTO(network.SSID, network.BSSID)

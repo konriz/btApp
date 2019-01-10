@@ -1,3 +1,6 @@
 package pl.com.tt.kapp.modules.bluetooth.model
 
-data class BTDeviceDTO(val name : String?, val address : String)
+import android.bluetooth.BluetoothDevice
+import pl.com.tt.kapp.modules.DeviceDTO
+
+data class BTDeviceDTO(val btDevice : BluetoothDevice) : DeviceDTO(btDevice.name, btDevice.address)

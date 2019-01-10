@@ -7,12 +7,12 @@ import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.bluetooth.model.BTDeviceDTO
 import pl.com.tt.kapp.modules.bluetooth.model.BTDriver
 
-class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter,
+class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     BluetoothMVP.ScanResultListener {
 
     init {
         BTDriver.attachPresenter(this)
-        view?.updateRecycler(convertToDto(BTDriver.lastDevices))
+        view.updateRecycler(convertToDto(BTDriver.lastDevices))
     }
 
     override fun onBluetoothSwitch(state: Boolean) {
@@ -24,13 +24,13 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
     }
 
     override fun setBtSwitch() {
-        view?.setSwitch(BTDriver.isEnabled())
+        view.setSwitch(BTDriver.isEnabled())
     }
 
     private fun convertToDto(devices: List<BluetoothDevice>) : List<BTDeviceDTO>{
         val devicesDtos = mutableListOf<BTDeviceDTO>()
         for(device in devices){
-            devicesDtos.add(BTDeviceDTO(device.name, device.address))
+            devicesDtos.add(BTDeviceDTO(device))
         }
         return devicesDtos.toList()
     }
@@ -39,22 +39,23 @@ class BluetoothPresenter(var view : BluetoothMVP.View?) : BluetoothMVP.Presenter
         if(BTDriver.isEnabled()){
             BTDriver.scan()
         } else {
-            view?.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
+            view.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
     }
 
     override fun onDiscoveryStarted() {
-        view?.showToast(R.string.bluetooth_scanning, Toast.LENGTH_SHORT)
-        view?.showLoader()
+        view.showToast(R.string.bluetooth_scanning, Toast.LENGTH_SHORT)
+        view.showLoader()
     }
 
     override fun onDiscoveryFinished(devices: List<BluetoothDevice>) {
-        view?.updateRecycler(convertToDto(devices))
-        view?.hideLoader()
+        view.updateRecycler(convertToDto(devices))
+        view.hideLoader()
     }
 
     override fun onDestroy(){
-        view = null
+//        Uncomment this in case of memory leaks
+//        view = null
         BTDriver.detachPresenter()
     }
 }

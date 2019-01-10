@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
 
-class NetworksListAdapter(private var networks : List<WifiNetworkDTO>)
+class NetworksListAdapter(private var networks : List<DeviceDTO>)
     : RecyclerView.Adapter<NetworksListAdapter.NetworksListViewHolder>() {
 
     class NetworksListViewHolder(val networkRowView: View) : RecyclerView.ViewHolder(networkRowView)
@@ -27,7 +28,7 @@ class NetworksListAdapter(private var networks : List<WifiNetworkDTO>)
         return networks.size
     }
 
-    fun update(newNetworks : List<WifiNetworkDTO>){
+    fun update(newNetworks : List<DeviceDTO>){
         networks = newNetworks
         notifyDataSetChanged()
     }
