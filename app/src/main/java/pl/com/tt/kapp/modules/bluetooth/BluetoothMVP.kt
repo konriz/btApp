@@ -1,7 +1,7 @@
 package pl.com.tt.kapp.modules.bluetooth
 
 import android.bluetooth.BluetoothDevice
-import pl.com.tt.kapp.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultsList
 
 class BluetoothMVP{
 

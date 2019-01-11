@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.bluetooth_fragment.*
-import pl.com.tt.kapp.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver

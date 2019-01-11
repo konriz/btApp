@@ -2,7 +2,7 @@ package pl.com.tt.kapp.modules.bluetooth.presenter
 
 import android.bluetooth.BluetoothDevice
 import android.widget.Toast
-import pl.com.tt.kapp.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.bluetooth.model.BluetoothDeviceDTO
@@ -30,7 +30,7 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
         view.setSwitch(BluetoothDriver.isEnabled())
     }
 
-    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList{
+    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList {
         val devicesDtos = mutableListOf<BluetoothDeviceDTO>()
         for(device in devices){
             devicesDtos.add(BluetoothDeviceDTO(device))

@@ -2,7 +2,7 @@ package pl.com.tt.kapp.modules.wifi.presenter
 
 import android.net.wifi.ScanResult
 import android.widget.Toast
-import pl.com.tt.kapp.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.location.model.LocationDriver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
@@ -29,7 +29,7 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
         }
     }
 
-    private fun convertToDto(networks : List<ScanResult>) : ScanResultsList{
+    private fun convertToDto(networks : List<ScanResult>) : ScanResultsList {
         val dtos = mutableListOf<WifiNetworkDTO>()
         for(network in networks){
             dtos.add(WifiNetworkDTO(network))

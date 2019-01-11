@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
-import pl.com.tt.kapp.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
 
 class NetworksListAdapter(private var networks : ScanResultsList)
