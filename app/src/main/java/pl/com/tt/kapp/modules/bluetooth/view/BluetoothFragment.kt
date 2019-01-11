@@ -12,6 +12,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.DeviceDTO
+import pl.com.tt.kapp.modules.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
@@ -19,12 +21,12 @@ import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
     private lateinit var presenter : BluetoothPresenter
-    private lateinit var viewAdapter: DevicesListAdapter
+    private lateinit var viewAdapter: ScanResultsListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = DevicesListAdapter(ScanResultsList.EmptyList)
+        viewAdapter = ScanResultsListAdapter(ScanResultsList.EmptyList.list)
         presenter = BluetoothPresenter(this)
 
         return inflater.inflate(R.layout.bluetooth_fragment, container, false)
@@ -72,8 +74,16 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(devices: ScanResultsList) {
+    override fun updateRecycler(devices: List<DeviceDTO>) {
         viewAdapter.update(devices)
+    }
+
+    override fun setLocationText(location: String?) {
+        location_text.text = location
+    }
+
+    override fun setDateText(date: String) {
+        date_text.text = date
     }
 
     override fun onDestroy() {

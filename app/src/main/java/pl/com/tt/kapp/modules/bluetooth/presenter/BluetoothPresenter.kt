@@ -15,7 +15,12 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
 
     init {
         BluetoothDriver.attachPresenter(this)
-        view.updateRecycler(convertToDto(BluetoothDriver.lastDevices))
+
+        val lastDevices = BluetoothDriver.lastDevices
+        if(lastDevices.isNotEmpty()){
+            updateData(convertToDto(BluetoothDriver.lastDevices))
+        }
+
     }
 
     override fun onBluetoothSwitch(state: Boolean) {
@@ -30,17 +35,10 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
         view.setSwitch(BluetoothDriver.isEnabled())
     }
 
-    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList {
-        val devicesDtos = mutableListOf<BluetoothDeviceDTO>()
-        for(device in devices){
-            devicesDtos.add(BluetoothDeviceDTO(device))
-        }
-        return BluetoothResultsList(devicesDtos, LocationDriver.lastLocation)
-    }
-
     override fun onScanButtonPressed() {
         if(BluetoothDriver.isEnabled()){
             BluetoothDriver.scan()
+            LocationDriver.scan()
         } else {
             view.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
@@ -52,8 +50,23 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
     }
 
     override fun onDiscoveryFinished(devices: List<BluetoothDevice>) {
-        view.updateRecycler(convertToDto(devices))
+        updateData(convertToDto(devices))
         view.hideLoader()
+    }
+
+    private fun updateData(devices : ScanResultsList){
+        view.setDateText(devices.placeTime.time.toString())
+        view.setLocationText(devices.placeTime.place?.toString())
+        view.updateRecycler(devices.list)
+
+    }
+
+    private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList {
+        val devicesDtos = mutableListOf<BluetoothDeviceDTO>()
+        for(device in devices){
+            devicesDtos.add(BluetoothDeviceDTO(device))
+        }
+        return BluetoothResultsList(devicesDtos, LocationDriver.lastLocation)
     }
 
     override fun onDestroy(){

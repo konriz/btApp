@@ -1,6 +1,7 @@
 package pl.com.tt.kapp.modules.wifi
 
 import android.net.wifi.ScanResult
+import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.ScanResultsList
 
 class WifiMVP{
@@ -25,7 +26,7 @@ class WifiMVP{
         fun switchOn() : Boolean
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
-        fun updateRecycler(networks : ScanResultsList)
+        fun updateRecycler(networks : List<DeviceDTO>)
     }
 
     interface Presentable{

@@ -14,7 +14,11 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
 
     init {
         WifiDriver.attachPresenter(this)
-        view.updateRecycler(convertToDto(WifiDriver.lastNetworks))
+
+        val lastNetworks = WifiDriver.lastNetworks
+        if(lastNetworks.isNotEmpty()){
+            updateData(convertToDto(WifiDriver.lastNetworks))
+        }
     }
 
     override fun setWifiSwitch(state : Boolean) {
@@ -69,7 +73,12 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
 
     override fun onDiscoveryFinished(networks: List<ScanResult>) {
         view.hideLoader()
-        view.updateRecycler(convertToDto(networks))
+        updateData(convertToDto(networks))
+    }
+
+    private fun updateData(networks : ScanResultsList){
+        view.updateRecycler(networks.list)
+        // TODO add date and location labels
     }
 
     override fun onDestroy(){
