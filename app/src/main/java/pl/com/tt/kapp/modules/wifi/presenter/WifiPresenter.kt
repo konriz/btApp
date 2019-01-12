@@ -77,8 +77,10 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
     }
 
     private fun updateData(networks : ScanResultsList){
+        view.setDateText(networks.placeTime.time.toString())
+        view.setLocationText(networks.placeTime.place?.toString())
         view.updateRecycler(networks.list)
-        // TODO add date and location labels
+
     }
 
     override fun onDestroy(){

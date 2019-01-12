@@ -1,7 +1,7 @@
 package pl.com.tt.kapp.modules.location.model
 
 import android.util.Log
-import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.*
 import pl.com.tt.kapp.modules.NetworkingAdapter
 
 const val TAG = "GPS-Adapter"
@@ -25,15 +25,17 @@ object LocationAdapter : NetworkingAdapter {
     }
 
     private fun getLastLocation() {
-        try{
+        try {
             gpsService.lastLocation.addOnSuccessListener {
                 LocationDriver.updateLocation(it)
-                Log.i(TAG, "Last location passed to driver")
+                if (it != null) {
+                    Log.i(TAG, it.toString())
+                } else {
+                    Log.i(TAG, "Location is null")
+                }
             }
-        } catch (e : SecurityException){
+        } catch (e: SecurityException) {
             Log.e(TAG, "Location permission denied!")
         }
     }
-
-
 }

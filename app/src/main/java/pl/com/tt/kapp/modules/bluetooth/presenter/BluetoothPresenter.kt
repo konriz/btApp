@@ -37,8 +37,8 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
 
     override fun onScanButtonPressed() {
         if(BluetoothDriver.isEnabled()){
-            BluetoothDriver.scan()
             LocationDriver.scan()
+            BluetoothDriver.scan()
         } else {
             view.showToast(R.string.bluetooth_disabled, Toast.LENGTH_SHORT)
         }
@@ -58,7 +58,6 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
         view.setDateText(devices.placeTime.time.toString())
         view.setLocationText(devices.placeTime.place?.toString())
         view.updateRecycler(devices.list)
-
     }
 
     private fun convertToDto(devices: List<BluetoothDevice>) : ScanResultsList {

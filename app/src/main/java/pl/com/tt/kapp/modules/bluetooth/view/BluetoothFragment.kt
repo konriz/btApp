@@ -59,11 +59,11 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun showLoader() {
-        progressBar.visibility = View.VISIBLE
+        bluetoothProgressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoader() {
-        progressBar.visibility = View.GONE
+        bluetoothProgressBar.visibility = View.GONE
     }
 
     override fun setSwitch(state: Boolean) {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import kotlinx.android.synthetic.main.wifi_fragment.*
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
@@ -59,12 +60,20 @@ class WifiFragment : Fragment(), WifiMVP.View {
         }
     }
 
+    override fun setDateText(date: String) {
+        date_text.text = date
+    }
+
+    override fun setLocationText(location: String?) {
+        location_text.text = location
+    }
+
     override fun showLoader() {
-        progressBar.visibility = View.VISIBLE
+        wifiProgressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoader() {
-        progressBar.visibility = View.GONE
+        wifiProgressBar.visibility = View.GONE
     }
 
     override fun switchOn() = wifiSwitch.isChecked

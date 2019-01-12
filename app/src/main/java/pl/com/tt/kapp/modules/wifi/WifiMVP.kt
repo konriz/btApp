@@ -23,6 +23,8 @@ class WifiMVP{
     interface View{
         fun showLoader()
         fun hideLoader()
+        fun setDateText(date : String)
+        fun setLocationText(location : String?)
         fun switchOn() : Boolean
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
