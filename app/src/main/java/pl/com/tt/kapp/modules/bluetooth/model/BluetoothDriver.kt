@@ -7,7 +7,7 @@ import pl.com.tt.kapp.modules.NetworkingAdapter
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
-object BluetoothDriver : Driver(adapter = BTAdapter), BluetoothMVP.Presentable {
+object BluetoothDriver : Driver<BluetoothDevice>(adapter = BTAdapter), BluetoothMVP.Presentable {
 
     private var listener : BluetoothMVP.ScanResultListener? = null
     var lastDevices : ScanResultsList = ScanResultsList.EmptyList
@@ -20,12 +20,12 @@ object BluetoothDriver : Driver(adapter = BTAdapter), BluetoothMVP.Presentable {
         listener = null
     }
 
-    fun onDiscoveryStarted(){
+    override fun onDiscoveryStarted(){
         listener?.onDiscoveryStarted()
     }
 
-    fun onDiscoveryFinished(devices : List<BluetoothDevice>){
-        lastDevices = DtoListConverter.bluetoothResultsToDto(devices)
+    override fun onDiscoveryFinished(results : List<BluetoothDevice>){
+        lastDevices = DtoListConverter.bluetoothResultsToDto(results)
         listener?.onDiscoveryFinished()
     }
 

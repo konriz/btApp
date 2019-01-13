@@ -6,7 +6,7 @@ import pl.com.tt.kapp.modules.DtoListConverter
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 
-object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.Presentable {
+object WifiDriver : Driver<ScanResult>(adapter = WifiAdapter), WifiMVP.Presentable {
 
     private var listener : WifiMVP.ScanResultListener? = null
     var lastNetworks : ScanResultsList = ScanResultsList.EmptyList
@@ -19,12 +19,12 @@ object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.Presentable {
         listener = null
     }
 
-    fun onDiscoveryStarted() {
+    override fun onDiscoveryStarted() {
         listener?.onDiscoveryStarted()
     }
 
-    fun onDiscoveryFinished(networks: List<ScanResult>) {
-        lastNetworks = DtoListConverter.wifiResultsToDto(networks)
+    override fun onDiscoveryFinished(results : List<ScanResult>) {
+        lastNetworks = DtoListConverter.wifiResultsToDto(results)
         listener?.onDiscoveryFinished()
     }
 

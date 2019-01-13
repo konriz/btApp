@@ -1,6 +1,6 @@
 package pl.com.tt.kapp.modules
 
-abstract class Driver(protected var adapter:NetworkingAdapter) {
+abstract class Driver<T>(protected var adapter:NetworkingAdapter) {
 
     fun enable() {
         adapter.enable()
@@ -13,5 +13,8 @@ abstract class Driver(protected var adapter:NetworkingAdapter) {
     fun scan() {
         adapter.scan()
     }
+
+    abstract fun onDiscoveryStarted()
+    abstract fun onDiscoveryFinished(results : List<T>)
 
 }
