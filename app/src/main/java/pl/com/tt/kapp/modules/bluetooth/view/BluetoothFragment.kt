@@ -12,7 +12,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
@@ -27,13 +26,13 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = ScanResultsListAdapter(ScanResultsList.EmptyList.list)
-        presenter = BluetoothPresenter(this)
 
         return inflater.inflate(R.layout.bluetooth_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter = BluetoothPresenter(this)
         activity?.registerReceiver(BTReceiver, BTReceiver.filter)
 
         devicesListRecycler.apply {
@@ -44,11 +43,11 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
         devicesListRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
-        enableBTswitch.setOnCheckedChangeListener { _, isChecked ->
+        bluetoothEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
             presenter.onBluetoothSwitch(isChecked)
         }
 
-        scanButton.setOnClickListener {
+        bluetoothScanButton.setOnClickListener {
             presenter.onScanButtonPressed()
         }
     }
@@ -67,23 +66,17 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun setSwitch(state: Boolean) {
-        enableBTswitch.isChecked = state
+        bluetoothEnableSwitch.isChecked = state
     }
 
     override fun showToast(message: Int, length : Int) {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(devices: List<DeviceDTO>) {
-        viewAdapter.update(devices)
-    }
-
-    override fun setLocationText(location: String?) {
-        location_text.text = location
-    }
-
-    override fun setDateText(date: String) {
-        date_text.text = date
+    override fun updateData(results: ScanResultsList) {
+        viewAdapter.update(results.list)
+        bluetoothDateText.text = results.placeTime.time.toString()
+        bluetoothLocationText.text = results.placeTime.place?.toString()
     }
 
     override fun onDestroy() {

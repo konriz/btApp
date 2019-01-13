@@ -2,12 +2,14 @@ package pl.com.tt.kapp.modules.wifi.model
 
 import android.net.wifi.ScanResult
 import pl.com.tt.kapp.modules.Driver
+import pl.com.tt.kapp.modules.DtoListConverter
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 
-object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.ScanResultListener, WifiMVP.Presentable {
+object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.Presentable {
 
     private var listener : WifiMVP.ScanResultListener? = null
-    var lastNetworks : List<ScanResult> = listOf()
+    var lastNetworks : ScanResultsList = ScanResultsList.EmptyList
 
     override fun attachPresenter(presenter: WifiMVP.ScanResultListener) {
         listener = presenter
@@ -17,21 +19,20 @@ object WifiDriver : Driver(adapter = WifiAdapter), WifiMVP.ScanResultListener, W
         listener = null
     }
 
-    override fun onDiscoveryStarted() {
-        lastNetworks = listOf()
+    fun onDiscoveryStarted() {
         listener?.onDiscoveryStarted()
     }
 
-    override fun onDiscoveryFinished(networks: List<ScanResult>) {
-        lastNetworks = networks
-        listener?.onDiscoveryFinished(lastNetworks)
+    fun onDiscoveryFinished(networks: List<ScanResult>) {
+        lastNetworks = DtoListConverter.wifiResultsToDto(networks)
+        listener?.onDiscoveryFinished()
     }
 
-    override fun onInterfaceEnabled(){
+    fun onInterfaceEnabled(){
         listener?.onInterfaceEnabled()
     }
 
-    override fun onInterfaceDisabled(){
+    fun onInterfaceDisabled(){
         listener?.onInterfaceDisabled()
     }
 }

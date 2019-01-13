@@ -14,14 +14,14 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/enableBTswitch"
+            android:id="@+id/bluetoothEnableSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/bluetooth_enable_switch"
-            app:layout_constraintEnd_toStartOf="@+id/scanButton"
+            app:layout_constraintEnd_toStartOf="@+id/bluetoothScanButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/scanButton"
+            android:id="@+id/bluetoothScanButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/scan_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/enableBTswitch"
+            app:layout_constraintStart_toEndOf="@+id/bluetoothEnableSwitch"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
@@ -83,14 +83,14 @@
                         android:text="@string/location"
                         android:layout_marginStart="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/location_label"
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothLocationLabel"
                         android:layout_weight="1"/>
                 <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/location_text" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothLocationText" android:layout_weight="1"
                         android:textAlignment="viewEnd"/>
             </LinearLayout>
             <LinearLayout
@@ -101,13 +101,14 @@
                         android:text="@string/date"
                         android:layout_marginStart="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/date_label" android:layout_weight="1"/>
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothDateLabel"
+                        android:layout_weight="1"/>
                 <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/date_text" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothDateText" android:layout_weight="1"
                         android:textAlignment="viewEnd"/>
             </LinearLayout>
         </LinearLayout>
@@ -126,28 +127,28 @@
             app:layout_constraintTop_toBottomOf="@+id/bluetoothProgressBar">
 
             <TextView
-                android:id="@+id/nameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/deviceNameLabel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"/>
+                    android:id="@+id/bluetoothNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/deviceNameLabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/addressLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/deviceAddressLabel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"/>
+                    android:id="@+id/bluetoothAddressLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/deviceAddressLabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"/>
 
         </android.support.constraint.ConstraintLayout>
 

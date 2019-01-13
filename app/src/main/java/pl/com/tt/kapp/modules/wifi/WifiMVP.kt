@@ -1,7 +1,5 @@
 package pl.com.tt.kapp.modules.wifi
 
-import android.net.wifi.ScanResult
-import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.ScanResultsList
 
 class WifiMVP{
@@ -17,18 +15,16 @@ class WifiMVP{
         fun onInterfaceEnabled()
         fun onInterfaceDisabled()
         fun onDiscoveryStarted()
-        fun onDiscoveryFinished(networks : List<ScanResult>)
+        fun onDiscoveryFinished()
     }
 
     interface View{
         fun showLoader()
         fun hideLoader()
-        fun setDateText(date : String)
-        fun setLocationText(location : String?)
         fun switchOn() : Boolean
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
-        fun updateRecycler(networks : List<DeviceDTO>)
+        fun updateData(networks : ScanResultsList)
     }
 
     interface Presentable{

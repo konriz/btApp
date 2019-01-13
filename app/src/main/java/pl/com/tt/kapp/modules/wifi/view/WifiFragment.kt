@@ -11,11 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.bluetooth_fragment.*
 import kotlinx.android.synthetic.main.wifi_fragment.*
 import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
@@ -31,7 +29,6 @@ class WifiFragment : Fragment(), WifiMVP.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = ScanResultsListAdapter(ScanResultsList.EmptyList.list)
-        presenter = WifiPresenter(this)
 
         return inflater.inflate(R.layout.wifi_fragment, container, false)
     }
@@ -39,6 +36,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        presenter = WifiPresenter(this)
         WifiAdapter.wifiService = context?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
         activity?.registerReceiver(WifiReceiver, WifiReceiver.filter)
@@ -51,21 +49,13 @@ class WifiFragment : Fragment(), WifiMVP.View {
 
         networksRecycler.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
-        wifiSwitch.setOnCheckedChangeListener { _, isChecked ->
+        wifiEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
             presenter.onWifiSwitch(isChecked)
         }
 
         wifiScanButton.setOnClickListener {
             presenter.onScanButtonPressed()
         }
-    }
-
-    override fun setDateText(date: String) {
-        date_text.text = date
-    }
-
-    override fun setLocationText(location: String?) {
-        location_text.text = location
     }
 
     override fun showLoader() {
@@ -76,18 +66,20 @@ class WifiFragment : Fragment(), WifiMVP.View {
         wifiProgressBar.visibility = View.GONE
     }
 
-    override fun switchOn() = wifiSwitch.isChecked
+    override fun switchOn() = wifiEnableSwitch.isChecked
 
     override fun setSwitch(state: Boolean) {
-        wifiSwitch.isChecked = state
+        wifiEnableSwitch.isChecked = state
     }
 
     override fun showToast(message: Int, length: Int) {
         Toast.makeText(context, message, length).show()
     }
 
-    override fun updateRecycler(networks: List<DeviceDTO>) {
-        viewAdapter.update(networks)
+    override fun updateData(networks: ScanResultsList) {
+        viewAdapter.update(networks.list)
+        wifiDateText.text = networks.placeTime.time.toString()
+        wifiLocationText.text = networks.placeTime.place?.toString()
     }
 
     override fun onDestroy() {

@@ -23,9 +23,8 @@ object WifiAdapter : NetworkingAdapter {
         /**
          * @deprecated - this will be removed in further APIS and converted to WifiScanner class
          */
+        WifiDriver.onDiscoveryStarted()
         wifiService.startScan()
-
-
         Log.i(TAG, "Wifi Scanning")
     }
 

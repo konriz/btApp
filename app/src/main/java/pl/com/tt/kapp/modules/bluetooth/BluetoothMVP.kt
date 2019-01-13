@@ -1,7 +1,5 @@
 package pl.com.tt.kapp.modules.bluetooth
 
-import android.bluetooth.BluetoothDevice
-import pl.com.tt.kapp.modules.DeviceDTO
 import pl.com.tt.kapp.modules.ScanResultsList
 
 class BluetoothMVP{
@@ -15,7 +13,7 @@ class BluetoothMVP{
 
     interface ScanResultListener{
         fun onDiscoveryStarted()
-        fun onDiscoveryFinished(devices : List<BluetoothDevice>)
+        fun onDiscoveryFinished()
     }
 
     interface View{
@@ -23,9 +21,7 @@ class BluetoothMVP{
         fun hideLoader()
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
-        fun updateRecycler(devices : List<DeviceDTO>)
-        fun setLocationText(location : String?)
-        fun setDateText(date : String)
+        fun updateData(results : ScanResultsList)
     }
 
     interface Presentable{

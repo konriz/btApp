@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/wifiSwitch"
+            android:id="@+id/wifiEnableSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -80,14 +80,16 @@
                         android:text="@string/location"
                         android:layout_marginStart="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView3" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/wifiLocationLabel"
+                        android:layout_weight="1"
                         android:textAlignment="viewStart"/>
                 <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/wifiLocationText"
+                        android:layout_weight="1"
                         android:textAlignment="viewEnd"/>
             </LinearLayout>
             <LinearLayout
@@ -98,14 +100,14 @@
                         android:text="@string/date"
                         android:layout_marginStart="8dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/wifiDateText" android:layout_weight="1"
                         android:textAlignment="textStart"/>
                 <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/wifiDateText" android:layout_weight="1"
                         android:textAlignment="viewEnd"/>
             </LinearLayout>
         </LinearLayout>
@@ -124,18 +126,18 @@
             app:layout_constraintTop_toBottomOf="@+id/bluetoothProgressBar">
 
             <TextView
-                android:id="@+id/nameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/wifiNameLabel"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/wifiNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/wifiNameLabel"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                    android:id="@+id/bssidLabel"
+                    android:id="@+id/wifiAddressLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

@@ -1,23 +1,19 @@
 package pl.com.tt.kapp.modules.wifi.presenter
 
-import android.net.wifi.ScanResult
 import android.widget.Toast
-import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.ScanResultsList
 import pl.com.tt.kapp.modules.location.model.LocationDriver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
-import pl.com.tt.kapp.modules.wifi.model.WifiNetworkDTO
-import pl.com.tt.kapp.modules.wifi.model.WifiResultsList
 
 class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanResultListener {
 
     init {
         WifiDriver.attachPresenter(this)
-
         val lastNetworks = WifiDriver.lastNetworks
-        if(lastNetworks.isNotEmpty()){
-            updateData(convertToDto(WifiDriver.lastNetworks))
+        if(lastNetworks.list.isNotEmpty()){
+            updateData(lastNetworks)
         }
     }
 
@@ -31,15 +27,6 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
         } else {
             WifiDriver.disable()
         }
-    }
-
-    private fun convertToDto(networks : List<ScanResult>) : ScanResultsList {
-        val dtos = mutableListOf<WifiNetworkDTO>()
-        for(network in networks){
-            dtos.add(WifiNetworkDTO(network))
-        }
-
-        return WifiResultsList(dtos.toList(), LocationDriver.lastLocation)
     }
 
     override fun onScanButtonPressed(){
@@ -71,16 +58,13 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
         view.showLoader()
     }
 
-    override fun onDiscoveryFinished(networks: List<ScanResult>) {
+    override fun onDiscoveryFinished() {
         view.hideLoader()
-        updateData(convertToDto(networks))
+        updateData(WifiDriver.lastNetworks)
     }
 
     private fun updateData(networks : ScanResultsList){
-        view.setDateText(networks.placeTime.time.toString())
-        view.setLocationText(networks.placeTime.place?.toString())
-        view.updateRecycler(networks.list)
-
+        view.updateData(networks)
     }
 
     override fun onDestroy(){
