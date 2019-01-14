@@ -2,18 +2,18 @@ package pl.com.tt.kapp.modules.wifi.presenter
 
 import android.widget.Toast
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.ScanResultsList
+import pl.com.tt.kapp.modules.ScanResultListener
 import pl.com.tt.kapp.modules.location.model.LocationDriver
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 
-class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanResultListener {
+class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, ScanResultListener {
 
     init {
         WifiDriver.attachPresenter(this)
         val lastNetworks = WifiDriver.lastNetworks
         if(lastNetworks.list.isNotEmpty()){
-            updateData(lastNetworks)
+            view.updateData(lastNetworks)
         }
     }
 
@@ -60,11 +60,7 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, WifiMVP.ScanRe
 
     override fun onDiscoveryFinished() {
         view.hideLoader()
-        updateData(WifiDriver.lastNetworks)
-    }
-
-    private fun updateData(networks : ScanResultsList){
-        view.updateData(networks)
+        view.updateData(WifiDriver.lastNetworks)
     }
 
     override fun onDestroy(){

@@ -11,22 +11,12 @@ class BluetoothMVP{
         fun onDestroy()
     }
 
-    interface ScanResultListener{
-        fun onDiscoveryStarted()
-        fun onDiscoveryFinished()
-    }
-
     interface View{
         fun showLoader()
         fun hideLoader()
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
         fun updateData(results : ScanResultsList)
-    }
-
-    interface Presentable{
-        fun attachPresenter(presenter : ScanResultListener)
-        fun detachPresenter()
     }
 
 }

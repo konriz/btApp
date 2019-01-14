@@ -11,13 +11,6 @@ class WifiMVP{
         fun onDestroy()
     }
 
-    interface ScanResultListener{
-        fun onInterfaceEnabled()
-        fun onInterfaceDisabled()
-        fun onDiscoveryStarted()
-        fun onDiscoveryFinished()
-    }
-
     interface View{
         fun showLoader()
         fun hideLoader()
@@ -25,11 +18,6 @@ class WifiMVP{
         fun setSwitch(state : Boolean)
         fun showToast(message : Int, length : Int)
         fun updateData(networks : ScanResultsList)
-    }
-
-    interface Presentable{
-        fun attachPresenter(presenter : WifiMVP.ScanResultListener)
-        fun detachPresenter()
     }
 
 }

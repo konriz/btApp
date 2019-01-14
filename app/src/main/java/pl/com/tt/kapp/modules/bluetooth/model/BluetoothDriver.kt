@@ -1,18 +1,15 @@
 package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothDevice
-import pl.com.tt.kapp.modules.Driver
-import pl.com.tt.kapp.modules.DtoListConverter
-import pl.com.tt.kapp.modules.NetworkingAdapter
-import pl.com.tt.kapp.modules.ScanResultsList
+import pl.com.tt.kapp.modules.*
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 
-object BluetoothDriver : Driver<BluetoothDevice>(adapter = BTAdapter), BluetoothMVP.Presentable {
+object BluetoothDriver : Driver<BluetoothDevice>(adapter = BTAdapter), Presentable {
 
-    private var listener : BluetoothMVP.ScanResultListener? = null
+    private var listener : ScanResultListener? = null
     var lastDevices : ScanResultsList = ScanResultsList.EmptyList
 
-    override fun attachPresenter(presenter: BluetoothMVP.ScanResultListener){
+    override fun attachPresenter(presenter: ScanResultListener){
         listener = presenter
     }
 
