@@ -75,8 +75,8 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
 
     override fun updateData(results: ScanResultsList) {
         viewAdapter.update(results.list)
-        bluetoothDateText.text = results.placeTime.time.toString()
-        bluetoothLocationText.text = results.placeTime.place?.toString()
+        bluetoothDateText.text = results.placeTime.timeString()
+        bluetoothLocationText.text = results.placeTime.placeString()
     }
 
     override fun onDestroy() {

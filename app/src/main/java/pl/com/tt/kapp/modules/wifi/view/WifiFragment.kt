@@ -78,8 +78,8 @@ class WifiFragment : Fragment(), WifiMVP.View {
 
     override fun updateData(networks: ScanResultsList) {
         viewAdapter.update(networks.list)
-        wifiDateText.text = networks.placeTime.time.toString()
-        wifiLocationText.text = networks.placeTime.place?.toString()
+        wifiDateText.text = networks.placeTime.timeString()
+        wifiLocationText.text = networks.placeTime.placeString()
     }
 
     override fun onDestroy() {
