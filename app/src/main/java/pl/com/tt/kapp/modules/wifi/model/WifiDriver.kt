@@ -1,8 +1,11 @@
 package pl.com.tt.kapp.modules.wifi.model
 
 import android.net.wifi.ScanResult
-import pl.com.tt.kapp.modules.*
-import pl.com.tt.kapp.modules.wifi.WifiMVP
+import pl.com.tt.kapp.modules.abstraction.Driver
+import pl.com.tt.kapp.modules.abstraction.Presentable
+import pl.com.tt.kapp.modules.abstraction.ScanResultListener
+import pl.com.tt.kapp.modules.abstraction.ScanResultsList
+import pl.com.tt.kapp.utils.DtoListConverter
 
 object WifiDriver : Driver<ScanResult>(adapter = WifiAdapter), Presentable {
 

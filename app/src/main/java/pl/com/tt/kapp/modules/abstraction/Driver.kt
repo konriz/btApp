@@ -1,6 +1,6 @@
-package pl.com.tt.kapp.modules
+package pl.com.tt.kapp.modules.abstraction
 
-abstract class Driver<T>(protected var adapter:NetworkingAdapter) {
+abstract class Driver<T>(protected var adapter: NetworkingAdapter) {
 
     fun enable() {
         adapter.enable()

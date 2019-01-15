@@ -1,8 +1,11 @@
 package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothDevice
-import pl.com.tt.kapp.modules.*
-import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
+import pl.com.tt.kapp.modules.abstraction.Driver
+import pl.com.tt.kapp.modules.abstraction.Presentable
+import pl.com.tt.kapp.modules.abstraction.ScanResultListener
+import pl.com.tt.kapp.modules.abstraction.ScanResultsList
+import pl.com.tt.kapp.utils.DtoListConverter
 
 object BluetoothDriver : Driver<BluetoothDevice>(adapter = BTAdapter), Presentable {
 

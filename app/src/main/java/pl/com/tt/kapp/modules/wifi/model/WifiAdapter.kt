@@ -2,12 +2,13 @@ package pl.com.tt.kapp.modules.wifi.model
 
 import android.net.wifi.WifiManager
 import android.util.Log
-import pl.com.tt.kapp.modules.NetworkingAdapter
+import pl.com.tt.kapp.modules.abstraction.NetworkingAdapter
 
 private const val TAG = "Wifi-Adapter"
 object WifiAdapter : NetworkingAdapter {
 
     lateinit var wifiService : WifiManager
+    var scanPending = false
 
     override fun enable(){
         wifiService.isWifiEnabled = true
@@ -23,6 +24,7 @@ object WifiAdapter : NetworkingAdapter {
         /**
          * @deprecated - this will be removed in further APIS and converted to WifiScanner class
          */
+        scanPending = true
         WifiDriver.onDiscoveryStarted()
         wifiService.startScan()
         Log.i(TAG, "Wifi Scanning")
@@ -33,9 +35,12 @@ object WifiAdapter : NetworkingAdapter {
     }
 
     fun onScanResultsAvailable(){
-        val results = wifiService.scanResults
-        WifiDriver.onDiscoveryFinished(results)
-        Log.i(TAG, results.size.toString())
+        if(scanPending){
+            val results = wifiService.scanResults
+            WifiDriver.onDiscoveryFinished(results)
+            Log.i(TAG, results.size.toString())
+            scanPending = false
+        }
     }
 
 }

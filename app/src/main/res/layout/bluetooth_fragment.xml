@@ -8,39 +8,39 @@
         tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" app:layout_constraintTop_toTopOf="parent">
 
         <Switch
-            android:id="@+id/bluetoothEnableSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/bluetooth_enable_switch"
-            app:layout_constraintEnd_toStartOf="@+id/bluetoothScanButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/bluetoothEnableSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/bluetooth_enable_switch"
+                app:layout_constraintEnd_toStartOf="@+id/bluetoothScanButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/bluetoothScanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/scan_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bluetoothEnableSwitch"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/bluetoothScanButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/scan_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bluetoothEnableSwitch"
+                app:layout_constraintTop_toTopOf="parent"/>
     </LinearLayout>
 
     <ProgressBar
@@ -90,8 +90,9 @@
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/bluetoothLocationText" android:layout_weight="1"
-                        android:textAlignment="viewEnd"/>
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothLocationText"
+                        android:layout_weight="1"
+                        android:textAlignment="viewEnd" android:layout_marginEnd="8dp"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
@@ -108,8 +109,9 @@
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/bluetoothDateText" android:layout_weight="1"
-                        android:textAlignment="viewEnd"/>
+                        android:layout_height="wrap_content" android:id="@+id/bluetoothDateText"
+                        android:layout_weight="1"
+                        android:textAlignment="viewEnd" android:layout_marginEnd="8dp"/>
             </LinearLayout>
         </LinearLayout>
         <android.support.constraint.ConstraintLayout

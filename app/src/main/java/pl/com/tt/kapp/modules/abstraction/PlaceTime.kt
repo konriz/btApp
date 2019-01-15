@@ -1,4 +1,4 @@
-package pl.com.tt.kapp.modules
+package pl.com.tt.kapp.modules.abstraction
 
 import android.location.Location
 import java.lang.StringBuilder

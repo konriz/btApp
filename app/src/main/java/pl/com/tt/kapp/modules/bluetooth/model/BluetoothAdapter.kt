@@ -2,11 +2,11 @@ package pl.com.tt.kapp.modules.bluetooth.model
 
 import android.bluetooth.BluetoothAdapter
 import android.util.Log
-import pl.com.tt.kapp.modules.NetworkingAdapter
+import pl.com.tt.kapp.modules.abstraction.NetworkingAdapter
 
 private const val TAG = "BT-Adapter"
 
-object BTAdapter : NetworkingAdapter{
+object BTAdapter : NetworkingAdapter {
     private val mBluetoothAdapter : BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
     override fun enable() {

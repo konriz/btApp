@@ -1,6 +1,6 @@
 package pl.com.tt.kapp.modules.wifi
 
-import pl.com.tt.kapp.modules.ScanResultsList
+import pl.com.tt.kapp.modules.abstraction.ScanResultsList
 
 class WifiMVP{
 

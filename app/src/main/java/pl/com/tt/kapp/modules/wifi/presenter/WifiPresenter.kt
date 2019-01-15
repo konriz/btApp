@@ -2,12 +2,12 @@ package pl.com.tt.kapp.modules.wifi.presenter
 
 import android.widget.Toast
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.ScanResultListener
-import pl.com.tt.kapp.modules.location.model.LocationDriver
+import pl.com.tt.kapp.modules.abstraction.ScanResultListener
 import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiDriver
 
-class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, ScanResultListener {
+class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter,
+    ScanResultListener {
 
     init {
         WifiDriver.attachPresenter(this)
@@ -32,7 +32,6 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter, ScanResultList
     override fun onScanButtonPressed(){
         if(WifiDriver.isEnabled()){
             WifiDriver.scan()
-            LocationDriver.scan()
             onDiscoveryStarted()
         } else {
             view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.device_row.view.*
 import pl.com.tt.kapp.R
+import pl.com.tt.kapp.modules.abstraction.DeviceDTO
 
 class ScanResultsListAdapter(private var devices : List<DeviceDTO>)
     : RecyclerView.Adapter<ScanResultsListAdapter.DevicesListViewHolder>() {
