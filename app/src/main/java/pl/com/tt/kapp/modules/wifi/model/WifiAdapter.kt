@@ -20,6 +20,10 @@ object WifiAdapter : NetworkingAdapter {
         Log.i(TAG, "Wifi Disabled")
     }
 
+    override fun isEnabled() : Boolean{
+        return wifiService.isWifiEnabled
+    }
+
     override fun scan(){
         /**
          * @deprecated - this will be removed in further APIS and converted to WifiScanner class
@@ -28,10 +32,6 @@ object WifiAdapter : NetworkingAdapter {
         WifiDriver.onDiscoveryStarted()
         wifiService.startScan()
         Log.i(TAG, "Wifi Scanning")
-    }
-
-    override fun isEnabled() : Boolean{
-        return wifiService.isWifiEnabled
     }
 
     fun onScanResultsAvailable(){

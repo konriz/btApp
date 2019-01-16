@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         FusedLocationProvider.gpsService = LocationServices.getFusedLocationProviderClient(this)
         setSupportActionBar(toolbar)
 
-        pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             askForPermissions()
         }

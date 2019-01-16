@@ -24,19 +24,19 @@ object BTAdapter : NetworkingAdapter {
         }
     }
 
+    override fun isEnabled() : Boolean{
+        if (mBluetoothAdapter == null){
+            return false
+        }
+        return mBluetoothAdapter.isEnabled
+    }
+
     override fun scan() {
         if(mBluetoothAdapter != null && isEnabled())
         {
             mBluetoothAdapter.startDiscovery()
             Log.i(TAG, "Starting discovery")
         }
-    }
-
-    override fun isEnabled() : Boolean{
-        if (mBluetoothAdapter == null){
-            return false
-        }
-        return mBluetoothAdapter.isEnabled
     }
 
 }
