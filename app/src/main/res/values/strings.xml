@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BtApp</string>
 
-    <string name="bluetooth_enable_switch">Enable bluetooth</string>
+    <string name="bluetooth_enable_switch">Bluetooth</string>
     <string name="scan_button">Scan</string>
     <string name="refresh_list">Refresh list</string>
 
@@ -19,15 +19,15 @@
     <string name="no_bluetooth_device">No bluetooth device found</string>
     <string name="bluetooth_already_enabled">Bluetooth already enabled</string>
     <string name="bluetooth_scanning">Bluetooth scanning...</string>
-    <string name="deviceNameLabel">Device Name</string>
-    <string name="deviceAddressLabel">Device Address</string>
+    <string name="device_name_label">Device Name</string>
+    <string name="device_address_label">Device Address</string>
 
-    <string name="wifiNameLabel">SSID</string>
-    <string name="wifi_enable_switch">Enable Wifi</string>
+    <string name="wifi_name_label">SSID</string>
+    <string name="wifi_enable_switch">Wifi</string>
     <string name="wifi_disabled">Wifi disabled</string>
     <string name="wifi_scanning">Wifi scanning...</string>
     <string name="wifi_enabled">Wifi enabled</string>
-    <string name="wifiBssidLabel">BSSID</string>
+    <string name="wifi_bssid_label">BSSID</string>
     <string name="location">Location:</string>
     <string name="date">Date:</string>
 

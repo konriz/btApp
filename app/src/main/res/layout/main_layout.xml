@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <fragment
             android:layout_width="0dp"
-            android:layout_height="0dp" android:name="pl.com.tt.kapp.CurrentScansFragment"
+            android:layout_height="0dp" android:name="pl.com.tt.kapp.views.currentScans.CurrentScansFragment"
             android:id="@+id/fragment" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

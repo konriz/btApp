@@ -1,4 +1,4 @@
-package pl.com.tt.kapp
+package pl.com.tt.kapp.views.currentScans
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.current_scans_fragment.*
+import pl.com.tt.kapp.R
 
 class CurrentScansFragment : Fragment() {
 
@@ -14,8 +15,6 @@ class CurrentScansFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        pager.adapter = ScreenSlidePagerAdapter(activity!!.supportFragmentManager)
+        currentPager.adapter = CurrentScansPagerAdapter(activity!!.supportFragmentManager)
     }
-
 }

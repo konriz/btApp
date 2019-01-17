@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.bluetooth_fragment.*
+import kotlinx.android.synthetic.main.current_bluetooth_fragment.*
 import pl.com.tt.kapp.modules.abstraction.ScanResultsList
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.ScanResultsListAdapter
@@ -17,7 +17,7 @@ import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
 
-class BluetoothFragment : Fragment(), BluetoothMVP.View {
+class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
 
     private lateinit var presenter : BluetoothPresenter
     private lateinit var viewAdapter: ScanResultsListAdapter
@@ -27,7 +27,7 @@ class BluetoothFragment : Fragment(), BluetoothMVP.View {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = ScanResultsListAdapter(ScanResultsList.EmptyList.list)
 
-        return inflater.inflate(R.layout.bluetooth_fragment, container, false)
+        return inflater.inflate(R.layout.current_bluetooth_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.wifi_fragment.*
+import kotlinx.android.synthetic.main.current_wifi_fragment.*
 import pl.com.tt.kapp.modules.abstraction.ScanResultsList
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.ScanResultsListAdapter
@@ -20,7 +20,7 @@ import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
 import pl.com.tt.kapp.modules.wifi.model.WifiReceiver
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
 
-class WifiFragment : Fragment(), WifiMVP.View {
+class CurrentWifiFragment : Fragment(), WifiMVP.View {
 
     private lateinit var presenter : WifiPresenter
     private lateinit var viewAdapter: ScanResultsListAdapter
@@ -30,7 +30,7 @@ class WifiFragment : Fragment(), WifiMVP.View {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = ScanResultsListAdapter(ScanResultsList.EmptyList.list)
 
-        return inflater.inflate(R.layout.wifi_fragment, container, false)
+        return inflater.inflate(R.layout.current_wifi_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
