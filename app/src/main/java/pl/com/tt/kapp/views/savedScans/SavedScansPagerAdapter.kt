@@ -16,8 +16,8 @@ class SavedScansPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(f
     override fun getPageTitle(position: Int): CharSequence? {
         var title : String? = null
         when(position){
-            0 -> title = "Bluetooth"
-            1 -> title = "Wifi"
+            0 -> title = "Saved Bluetooth"
+            1 -> title = "Saved Wifi"
         }
         return title
     }
