@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,9 @@ import pl.com.tt.kapp.modules.wifi.WifiMVP
 import pl.com.tt.kapp.modules.wifi.model.WifiAdapter
 import pl.com.tt.kapp.modules.wifi.model.WifiReceiver
 import pl.com.tt.kapp.modules.wifi.presenter.WifiPresenter
+import java.lang.IllegalArgumentException
+
+private const val TAG = "CurrWifiFragment"
 
 class CurrentWifiFragment : Fragment(), WifiMVP.View {
 
@@ -83,8 +87,12 @@ class CurrentWifiFragment : Fragment(), WifiMVP.View {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        try{
+            activity?.unregisterReceiver(WifiReceiver)
+        } catch (e : IllegalArgumentException){
+            Log.w(TAG, "Receiver is not registered")
+        }
         presenter.onDestroy()
-        activity?.unregisterReceiver(WifiReceiver)
+        super.onDestroy()
     }
 }

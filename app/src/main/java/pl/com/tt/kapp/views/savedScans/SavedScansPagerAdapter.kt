@@ -2,13 +2,13 @@ package pl.com.tt.kapp.views.savedScans
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import pl.com.tt.kapp.modules.bluetooth.view.CurrentBluetoothFragment
-import pl.com.tt.kapp.modules.wifi.view.CurrentWifiFragment
+import pl.com.tt.kapp.modules.persistence.SavedBluetoothFragment
+import pl.com.tt.kapp.modules.persistence.SavedWifiFragment
 
 
 class SavedScansPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-    private val fragments = listOf(CurrentBluetoothFragment(), CurrentWifiFragment())
+    private val fragments = listOf(SavedBluetoothFragment(), SavedWifiFragment())
 
     override fun getCount(): Int = fragments.size
     override fun getItem(p0: Int) = fragments[p0]

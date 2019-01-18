@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,9 @@ import pl.com.tt.kapp.modules.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.bluetooth.model.BTReceiver
 import pl.com.tt.kapp.modules.bluetooth.presenter.BluetoothPresenter
+import java.lang.IllegalArgumentException
+
+private const val TAG = "CurrBtFragment"
 
 class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
 
@@ -80,7 +84,11 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
     }
 
     override fun onDestroy() {
-        activity?.unregisterReceiver(BTReceiver)
+        try{
+            activity?.unregisterReceiver(BTReceiver)
+        } catch (e : IllegalArgumentException){
+            Log.w(TAG, "Receiver is not registered")
+        }
         presenter.onDestroy()
         super.onDestroy()
     }
