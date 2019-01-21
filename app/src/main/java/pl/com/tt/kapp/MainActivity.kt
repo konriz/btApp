@@ -8,14 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.*
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.util.Log
 import android.view.MenuItem
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.main_layout.*
-import pl.com.tt.kapp.modules.location.model.FusedLocationProvider
-import pl.com.tt.kapp.views.currentScans.CurrentScansFragment
-import pl.com.tt.kapp.views.savedScans.SavedScansFragment
+import pl.com.tt.kapp.modules.model.location.FusedLocationProvider
+import pl.com.tt.kapp.modules.vp.current.CurrentScansFragment
+import pl.com.tt.kapp.modules.vp.saved.SavedScansFragment
 
 
 const val TAG = "Main Activity"

@@ -32,5 +32,8 @@
     <string name="date">Date:</string>
     <string name="current_menu">Live Scans</string>
     <string name="saved_menu">Saved Scans</string>
+    <string name="scan_date">Date:</string>
+    <string name="devices_count">Devices count:</string>
+    <string name="networks_count">Networks count:</string>
 
 </resources>
