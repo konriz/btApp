@@ -10,18 +10,25 @@ import android.support.v4.app.*
 import android.support.v4.view.GravityCompat
 import android.util.Log
 import android.view.MenuItem
+import androidx.room.Room
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.main_layout.*
 import pl.com.tt.kapp.modules.model.location.FusedLocationProvider
+import pl.com.tt.kapp.modules.model.persistence.ScanDatabase
 import pl.com.tt.kapp.modules.vp.current.CurrentScansFragment
 import pl.com.tt.kapp.modules.vp.saved.SavedScansFragment
 
 
 const val TAG = "Main Activity"
 class MainActivity : AppCompatActivity() {
+
+    private val database = Room
+        .databaseBuilder(applicationContext, ScanDatabase::class.java, "scan-database")
+        .build()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.main_layout)
 
 //        Toolbar part
