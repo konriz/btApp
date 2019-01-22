@@ -1,12 +1,17 @@
 package pl.com.tt.kapp.modules.model.persistence
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
 
 @Entity
 data class Scan(
-    @PrimaryKey var id : Int,
-    @ColumnInfo(name = "scan_date") var date: String?,
-    @ColumnInfo(name = "devices_count") var devicesCount: String?
+
+    @PrimaryKey
+    @ColumnInfo(name = "scan_date")
+    var date: String,
+
+    @ColumnInfo(name = "devices_count")
+    var devicesCount: Int?
 )

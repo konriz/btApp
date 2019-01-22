@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.scan_row.view.*
 import pl.com.tt.kapp.R
-import pl.com.tt.kapp.modules.abstraction.ScanDTO
+import pl.com.tt.kapp.modules.model.persistence.Scan
 
-class SavedScansListAdapter(private var scans : List<ScanDTO>)
+class SavedScansListAdapter(private var scans : List<Scan>)
     : RecyclerView.Adapter<SavedScansListAdapter.ScansListViewHolder>() {
 
     class ScansListViewHolder(val scanRowView : View) : RecyclerView.ViewHolder(scanRowView)
@@ -22,13 +22,13 @@ class SavedScansListAdapter(private var scans : List<ScanDTO>)
         val scan = scans[p1]
         val row = p0.scanRowView
 
-        row.date.text = scan.placeTime.timeString()
-        row.count.text = scan.list.size.toString()
+        row.date.text = scan.date
+        row.count.text = scan.devicesCount.toString()
     }
 
     override fun getItemCount() = scans.size
 
-    fun update(scans : List<ScanDTO>){
+    fun update(scans : List<Scan>){
         this.scans = scans
         notifyDataSetChanged()
     }
