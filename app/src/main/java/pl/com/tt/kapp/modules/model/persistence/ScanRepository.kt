@@ -3,6 +3,9 @@ package pl.com.tt.kapp.modules.model.persistence
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import android.util.Log
+
+private const val TAG = "Scan Repository"
 
 class ScanRepository (application: Application) {
 
@@ -18,6 +21,7 @@ class ScanRepository (application: Application) {
     fun getAllScans() = mAllScans
 
     fun insert(scan: Scan) {
+        Log.i(TAG, "Inserting scan")
         InsertAsyncTask(mScanDAO).execute(scan)
     }
 

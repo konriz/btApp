@@ -35,5 +35,6 @@
     <string name="scan_date">Date:</string>
     <string name="devices_count">Devices count:</string>
     <string name="networks_count">Networks count:</string>
+    <string name="bluetooth_save_button">Save</string>
 
 </resources>

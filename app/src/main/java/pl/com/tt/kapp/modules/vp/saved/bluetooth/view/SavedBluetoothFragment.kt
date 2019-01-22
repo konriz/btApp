@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.saved_bluetooth_fragment.*
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.model.persistence.Scan
 import pl.com.tt.kapp.modules.model.persistence.ScanViewModel
@@ -23,16 +24,21 @@ class SavedBluetoothFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewManager = LinearLayoutManager(activity)
+        viewAdapter = SavedScansListAdapter(listOf())
         mScanViewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
         mScanViewModel.allScans().observe(this, Observer<List<Scan>> {
             viewAdapter.update(it!!)
         })
+
+        scansListRecycler.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = SavedScansListAdapter(listOf())
-
         return inflater.inflate(R.layout.saved_bluetooth_fragment, container, false)
     }
 }

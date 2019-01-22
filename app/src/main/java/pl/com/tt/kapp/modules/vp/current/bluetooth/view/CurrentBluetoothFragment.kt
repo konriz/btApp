@@ -1,5 +1,6 @@
 package pl.com.tt.kapp.modules.vp.current.bluetooth.view
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -16,8 +17,11 @@ import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.vp.current.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.vp.current.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.model.bluetooth.BTReceiver
+import pl.com.tt.kapp.modules.model.persistence.Scan
+import pl.com.tt.kapp.modules.model.persistence.ScanViewModel
 import pl.com.tt.kapp.modules.vp.current.bluetooth.presenter.BluetoothPresenter
 import java.lang.IllegalArgumentException
+import java.util.*
 
 private const val TAG = "CurrBtFragment"
 
@@ -26,6 +30,8 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
     private lateinit var presenter : BluetoothPresenter
     private lateinit var viewAdapter: ScanResultsListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private lateinit var mScanViewModel : ScanViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewManager = LinearLayoutManager(activity)
@@ -39,6 +45,8 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
         presenter = BluetoothPresenter(this)
         activity?.registerReceiver(BTReceiver, BTReceiver.filter)
 
+        mScanViewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
+
         scansListRecycler.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -51,9 +59,14 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
             presenter.onBluetoothSwitch(isChecked)
         }
 
+        bluetoothSaveButton.setOnClickListener {
+            mScanViewModel.insert(Scan(Date().toString(), 5))
+        }
+
         bluetoothScanButton.setOnClickListener {
             presenter.onScanButtonPressed()
         }
+
     }
 
     override fun onResume() {
