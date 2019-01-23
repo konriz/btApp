@@ -36,6 +36,10 @@ class SavedBluetoothFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        clearListButton.setOnClickListener {
+            mScanViewModel.deleteAll()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

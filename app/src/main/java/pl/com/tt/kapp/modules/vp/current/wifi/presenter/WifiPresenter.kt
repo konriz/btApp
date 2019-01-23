@@ -42,14 +42,14 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter,
         if(!view.switchOn()){
             view.setSwitch(true)
         }
-        view.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
+//        view.showToast(R.string.wifi_enabled, Toast.LENGTH_SHORT)
     }
 
     override fun onInterfaceDisabled() {
         if(view.switchOn()){
             view.setSwitch(false)
         }
-        view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
+//        view.showToast(R.string.wifi_disabled, Toast.LENGTH_SHORT)
     }
 
     override fun onDiscoveryStarted() {

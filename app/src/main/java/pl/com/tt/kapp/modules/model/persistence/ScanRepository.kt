@@ -25,12 +25,26 @@ class ScanRepository (application: Application) {
         InsertAsyncTask(mScanDAO).execute(scan)
     }
 
+    fun deleteAll() {
+        Log.i(TAG, "Deleting all scans")
+        DeleteAsyncTask(mScanDAO).execute()
+    }
+
 
     private class InsertAsyncTask(scanDAO: ScanDAO) : AsyncTask<Scan, Void, Boolean>() {
         private var mAsyncTaskDao : ScanDAO = scanDAO
 
         override fun doInBackground(vararg params: Scan): Boolean {
             mAsyncTaskDao.insertAll(params[0])
+            return true
+        }
+    }
+
+    private class DeleteAsyncTask(scanDAO: ScanDAO) : AsyncTask<Void, Void, Boolean>() {
+        private var mAsyncTaskDao : ScanDAO = scanDAO
+
+        override fun doInBackground(vararg params: Void?): Boolean {
+            mAsyncTaskDao.deleteAll()
             return true
         }
     }

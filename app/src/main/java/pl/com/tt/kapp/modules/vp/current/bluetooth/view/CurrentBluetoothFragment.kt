@@ -17,11 +17,9 @@ import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.vp.current.ScanResultsListAdapter
 import pl.com.tt.kapp.modules.vp.current.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.model.bluetooth.BTReceiver
-import pl.com.tt.kapp.modules.model.persistence.Scan
 import pl.com.tt.kapp.modules.model.persistence.ScanViewModel
 import pl.com.tt.kapp.modules.vp.current.bluetooth.presenter.BluetoothPresenter
 import java.lang.IllegalArgumentException
-import java.util.*
 
 private const val TAG = "CurrBtFragment"
 
@@ -45,8 +43,6 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
         presenter = BluetoothPresenter(this)
         activity?.registerReceiver(BTReceiver, BTReceiver.filter)
 
-        mScanViewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
-
         scansListRecycler.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -60,7 +56,7 @@ class CurrentBluetoothFragment : Fragment(), BluetoothMVP.View {
         }
 
         bluetoothSaveButton.setOnClickListener {
-            mScanViewModel.insert(Scan(Date().toString(), 5))
+            presenter.onSaveButtonPressed(this)
         }
 
         bluetoothScanButton.setOnClickListener {

@@ -12,4 +12,6 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     fun allScans() = mAllScans
 
+    fun deleteAll() = mScanRepository.deleteAll()
+
 }

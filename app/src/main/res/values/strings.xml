@@ -36,5 +36,8 @@
     <string name="devices_count">Devices count:</string>
     <string name="networks_count">Networks count:</string>
     <string name="bluetooth_save_button">Save</string>
+    <string name="scan_saved">Scan saved</string>
+    <string name="scan_empty">No devices scanned</string>
+    <string name="clear_list">Clear</string>
 
 </resources>
