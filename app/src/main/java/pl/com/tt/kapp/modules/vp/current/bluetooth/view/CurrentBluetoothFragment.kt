@@ -1,6 +1,5 @@
 package pl.com.tt.kapp.modules.vp.current.bluetooth.view
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration

@@ -57,6 +57,10 @@ class CurrentWifiFragment : Fragment(), WifiMVP.View {
             presenter.onWifiSwitch(isChecked)
         }
 
+        wifiSaveButton.setOnClickListener {
+            presenter.onSaveButtonPressed(this)
+        }
+
         wifiScanButton.setOnClickListener {
             presenter.onScanButtonPressed()
         }

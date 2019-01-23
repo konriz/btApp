@@ -1,8 +1,13 @@
 package pl.com.tt.kapp.modules.vp.current.wifi.presenter
 
+import android.arch.lifecycle.ViewModelProviders
+import android.support.v4.app.Fragment
 import android.widget.Toast
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.abstraction.ScanResultListener
+import pl.com.tt.kapp.modules.model.bluetooth.BluetoothDriver
+import pl.com.tt.kapp.modules.model.persistence.Scan
+import pl.com.tt.kapp.modules.model.persistence.ScanViewModel
 import pl.com.tt.kapp.modules.vp.current.wifi.WifiMVP
 import pl.com.tt.kapp.modules.model.wifi.WifiDriver
 
@@ -27,6 +32,19 @@ class WifiPresenter(var view : WifiMVP.View) : WifiMVP.Presenter,
         } else {
             WifiDriver.disable()
         }
+    }
+
+    override fun onSaveButtonPressed(fragment: Fragment) {
+        val mScanViewModel = ViewModelProviders.of(fragment).get(ScanViewModel::class.java)
+        val lastScan = WifiDriver.lastNetworks
+        if (lastScan.list.isEmpty()){
+            view.showToast(R.string.scan_empty, Toast.LENGTH_SHORT)
+        } else {
+            val scan = Scan(lastScan.placeTime.timeString(), lastScan.list.size)
+            mScanViewModel.insert(scan)
+            view.showToast(R.string.scan_saved, Toast.LENGTH_SHORT)
+        }
+
     }
 
     override fun onScanButtonPressed(){
