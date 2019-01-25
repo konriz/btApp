@@ -5,9 +5,11 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [Scan::class], version = 1, exportSchema = false)
+@Database(entities = [Scan::class, ResultDto::class, ScanResultJoin::class], version = 1, exportSchema = false)
 abstract class ScanDatabase : RoomDatabase(){
-    abstract fun scanDao() : ScanDAO
+    abstract fun scanDao() : ScanDao
+    abstract fun resultDao() : ResultDao
+    abstract fun scanResultJoinDao() : ScanResultJoinDao
 
     companion object {
         private var INSTANCE: ScanDatabase? = null

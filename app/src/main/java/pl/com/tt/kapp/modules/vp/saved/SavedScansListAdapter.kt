@@ -23,7 +23,7 @@ class SavedScansListAdapter(private var scans : List<Scan>)
         val row = p0.scanRowView
 
         row.date.text = scan.date
-        row.count.text = scan.devicesCount.toString()
+        row.count.text = scan.location.toString()
     }
 
     override fun getItemCount() = scans.size

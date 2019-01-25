@@ -3,14 +3,12 @@ package pl.com.tt.kapp.modules.model.persistence
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-
-@Entity(tableName = "scan")
-data class Scan(
+@Entity(tableName = "result")
+data class ResultDto(
 
     @PrimaryKey
-    var date: String,
+    var address : String,
 
-    var location: String?,
+    var name : String?
 
-    var type : Int
 )

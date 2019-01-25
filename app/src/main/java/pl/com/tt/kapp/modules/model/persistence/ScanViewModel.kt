@@ -6,11 +6,16 @@ import android.arch.lifecycle.AndroidViewModel
 class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mScanRepository = ScanRepository(application)
-    private val mAllScans = mScanRepository.getAllScans()
+    private val mBluetoothScans = mScanRepository.getBluetoothScans()
+    private val mWifiScans = mScanRepository.getWifiScans()
 
-    fun insert(scan: Scan) = mScanRepository.insert(scan)
+    fun insert(scan : Scan, results: List<ResultDto>){
+        mScanRepository.insert(scan, results)
+    }
 
-    fun allScans() = mAllScans
+    fun bluetoothScans() = mBluetoothScans
+
+    fun wifiScans() = mWifiScans
 
     fun deleteAll() = mScanRepository.deleteAll()
 

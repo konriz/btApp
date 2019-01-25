@@ -4,18 +4,18 @@ import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 
 @Dao
-interface ScanDAO {
+interface ResultDao {
 
-    @Query("SELECT * FROM scan")
-    fun getAll(): LiveData<List<Scan>>
+    @Query("SELECT * FROM result")
+    fun getAll(): LiveData<List<ResultDto>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg scans: Scan)
+    fun insertAll(results : List<ResultDto>)
 
     @Delete
-    fun delete(scan : Scan)
+    fun delete(result : ResultDto)
 
-    @Query("DELETE FROM scan")
+    @Query("DELETE FROM result")
     fun deleteAll()
 
 }

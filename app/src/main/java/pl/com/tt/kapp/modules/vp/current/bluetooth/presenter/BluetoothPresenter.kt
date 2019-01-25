@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment
 import android.widget.Toast
 import pl.com.tt.kapp.R
 import pl.com.tt.kapp.modules.abstraction.ScanResultListener
+import pl.com.tt.kapp.modules.abstraction.ScanType
 import pl.com.tt.kapp.modules.vp.current.bluetooth.BluetoothMVP
 import pl.com.tt.kapp.modules.model.bluetooth.BluetoothDriver
+import pl.com.tt.kapp.modules.model.persistence.ResultDto
 import pl.com.tt.kapp.modules.model.persistence.Scan
 import pl.com.tt.kapp.modules.model.persistence.ScanViewModel
 
@@ -50,8 +52,8 @@ class BluetoothPresenter(var view : BluetoothMVP.View) : BluetoothMVP.Presenter,
         if (lastScan.list.isEmpty()){
             view.showToast(R.string.scan_empty, Toast.LENGTH_SHORT)
         } else {
-            val scan = Scan(lastScan.placeTime.timeString(), lastScan.list.size)
-            mScanViewModel.insert(scan)
+            val scan = Scan(lastScan.placeTime.timeString(), lastScan.placeTime.placeString(), ScanType.BLUETOOTH.type)
+            mScanViewModel.insert(scan, lastScan.list.map { ResultDto(it.address, it.name) })
             view.showToast(R.string.scan_saved, Toast.LENGTH_SHORT)
         }
     }

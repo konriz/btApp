@@ -27,7 +27,7 @@ class SavedBluetoothFragment : Fragment() {
         viewManager = LinearLayoutManager(activity)
         viewAdapter = SavedScansListAdapter(listOf())
         mScanViewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
-        mScanViewModel.allScans().observe(this, Observer<List<Scan>> {
+        mScanViewModel.bluetoothScans().observe(this, Observer<List<Scan>> {
             viewAdapter.update(it!!)
         })
 

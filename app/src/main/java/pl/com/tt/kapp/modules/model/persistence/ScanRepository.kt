@@ -9,42 +9,65 @@ private const val TAG = "Scan Repository"
 
 class ScanRepository (application: Application) {
 
-    private var mScanDAO : ScanDAO
-    private var mAllScans : LiveData<List<Scan>>
+    private var mScanDao : ScanDao
+    private var mResultDao : ResultDao
+    private var mScanResultDao : ScanResultJoinDao
+    private var mBluetoothScans : LiveData<List<Scan>>
+    private var mWifiScans : LiveData<List<Scan>>
 
     init {
         val db = ScanDatabase.getInstance(application.applicationContext)
-        mScanDAO = db!!.scanDao()
-        mAllScans = mScanDAO.getAll()
+        mScanDao = db!!.scanDao()
+        mResultDao = db.resultDao()
+        mScanResultDao = db.scanResultJoinDao()
+
+        mBluetoothScans = mScanDao.getBluetooth()
+        mWifiScans = mScanDao.getWifi()
     }
 
-    fun getAllScans() = mAllScans
+    fun getBluetoothScans() = mBluetoothScans
 
-    fun insert(scan: Scan) {
+    fun getWifiScans() = mWifiScans
+
+    fun insert(scan: Scan, results: List<ResultDto>) {
         Log.i(TAG, "Inserting scan")
-        InsertAsyncTask(mScanDAO).execute(scan)
+        InsertAsyncTask(mScanDao, mResultDao, mScanResultDao).execute(AsyncParams(scan, results))
     }
 
     fun deleteAll() {
         Log.i(TAG, "Deleting all scans")
-        DeleteAsyncTask(mScanDAO).execute()
+        DeleteAsyncTask(mScanDao, mResultDao, mScanResultDao).execute()
     }
 
+    private class AsyncParams(var scan: Scan, var results: List<ResultDto>)
 
-    private class InsertAsyncTask(scanDAO: ScanDAO) : AsyncTask<Scan, Void, Boolean>() {
-        private var mAsyncTaskDao : ScanDAO = scanDAO
 
-        override fun doInBackground(vararg params: Scan): Boolean {
-            mAsyncTaskDao.insertAll(params[0])
+    private class InsertAsyncTask(scanDao: ScanDao, resultDao: ResultDao, scanResultJoinDao: ScanResultJoinDao) : AsyncTask<AsyncParams, Void, Boolean>() {
+        private var mAsyncScanDao : ScanDao = scanDao
+        private var mAsyncResultDao : ResultDao = resultDao
+        private var mAsyncScanResultJoinDao : ScanResultJoinDao = scanResultJoinDao
+
+        override fun doInBackground(vararg params : AsyncParams): Boolean {
+            val param = params[0]
+            mAsyncScanDao.insertAll(param.scan)
+            mAsyncResultDao.insertAll(param.results)
+            for(result in param.results){
+                mAsyncScanResultJoinDao.insert(ScanResultJoin(param.scan.date, result.address))
+            }
+
             return true
         }
     }
 
-    private class DeleteAsyncTask(scanDAO: ScanDAO) : AsyncTask<Void, Void, Boolean>() {
-        private var mAsyncTaskDao : ScanDAO = scanDAO
+    private class DeleteAsyncTask(scanDao: ScanDao, resultDao: ResultDao, scanResultJoinDao: ScanResultJoinDao) : AsyncTask<Void, Void, Boolean>() {
+        private var mAsyncScanDao : ScanDao = scanDao
+        private var mAsyncResultDao : ResultDao = resultDao
+        private var mAsyncScanResultJoinDao : ScanResultJoinDao = scanResultJoinDao
 
         override fun doInBackground(vararg params: Void?): Boolean {
-            mAsyncTaskDao.deleteAll()
+            mAsyncScanResultJoinDao.deleteAll()
+            mAsyncResultDao.deleteAll()
+            mAsyncScanDao.deleteAll()
             return true
         }
     }
